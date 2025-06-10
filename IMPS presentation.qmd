@@ -1,0 +1,976 @@
+---
+title: "Measuring Forecasting Proficiency: An Item Response Theory Approach"
+author: "Fabio Setti"
+institute: "Fordham University"
+
+bibliography: Additional files/R packages.bib
+csl: Additional files/apa.csl
+title-slide-attributes:
+  data-transition: "zoom"
+  data-visibility: "uncounted"
+format:
+   revealjs:
+      footer: "IMPS 2025"
+      width: 1280
+      height: 720
+      chalkboard: true
+      slide-number: c/t 
+      theme: Fabio_theme/Fabio_theme.scss
+      navigation-mode: linear
+      controls: false
+      auto-stretch: false
+      header-includes:
+        - <script src="Fabio_theme/Fabio_theme.js"></script>
+filters:
+  - shinylive
+editor: source
+---
+
+
+## Quantile Forecasts
+
+
+```{r}
+#| warning: false
+
+# ggplot defaults and tidyverse
+
+library(tidyverse)
+theme_set(theme_classic(base_size = 20, 
+                        base_family = 'serif'))
+```
+
+
+
+The Forecasting Proficiency Test [FPT\; @Himmelstein_etal_2024] is a test developed to measure forecasting proficiency. The FTP uses *quantile forecast* items:
+
+
+
+
+:::: {.columns}
+
+::: {.column width="40%"}
+
+::: {.fragment fragment-index=1}
+
+<center> **FPT sample item:** </center>
+:::
+
+::: {.r-stack}
+
+![](Additional files/images/Sample_questions.png){.fragment fragment-index=1}
+
+![](Additional files/images/Sample_questions_answers.PNG){.fragment fragment-index=2}
+:::
+
+:::
+
+::: {.column width="60%"}
+
+
+::: {.fragment fragment-index=2}
+
+Quantile forecasting items are designed to elicit an individual's subjective cumulative distribution function (CDF) regarding a future continuous outcome.
+
+:::
+
+
+::: {.fragment fragment-index=3}
+
+This type of item does not fit neatly into any popular psychometric framework:
+
+- Each participant provides 5 monotonically increasing responses.
+
+- Responses are unbounded. 
+
+- *Forecast accuracy* is the measure of interest.  
+:::
+
+::: {.fragment fragment-index=4}
+**GOAL:** in IRT fashion, modeling forecast accuracy by positing a statistical model that accounts for both *person* and *item* features
+:::
+
+:::
+
+::::
+
+
+## Defining Forecast Accuracy
+
+
+
+Responses to FTP quantile forecast items are on very different scale (e.g. dollars/gallon, thousands of dollars, percentages,...). We define the outcome measure, *historically scales accuracy*, as
+
+$$
+Y_i = \frac{\hat{Y}_i - Y_{\mathrm{res},i}}{SD_{Y_{\mathrm{hist},i}}}
+$$
+
+:::: {.columns}
+
+::: {.column width="33%"}
+
+$\hat{Y}_i$: Reported forecast for item $i$ at any quantile. 
+
+:::
+
+
+::: {.column width="33%"}
+
+$Y_{\mathrm{res},i}$: The resolution for item $i$ a month after the forecast $\hat{Y}_i$.
+
+:::
+
+
+::: {.column width="33%"}
+
+$SD_{Y_{\mathrm{hist},i}}$: The $SD$ of the historical time series of item $i$.  
+
+:::
+
+::::
+
+</br>
+
+::: {.fragment fragment-index=1}
+
+This transformation makes $Y_i$ interpretable as standard deviation units away from the resolution.
+
+
+:::: {.columns}
+::: {.column width="50%"}
+- $Y = 0$ &rarr; forecast, $\hat{Y}_i$, was a perfect forecast
+:::
+::: {.column width="50%"}
+
+- $Y < 0, Y > 0$ &rarr; forecast, $\hat{Y}_i$, was below or above the resolution
+
+:::
+::::
+
+:::
+
+## Data Generating Process: Means
+
+
+```{r}
+source("Functions.R")
+```
+
+
+:::: {.columns}
+::: {.column width="50%"}
+
+At each quantile $q$ for item $i$, we estimate item mean accuracy, with each quantile mean accuracy being equally spaced. *unbiased* items will have $\overline{Y}_{50\%} = 0$. 
+
+```{r}
+#| eval: true
+#| echo: false 
+#| code-line-numbers: false
+
+Model_plot(title = "Unbiased Item")
+
+```
+
+
+:::
+::: {.column width="50%"}
+
+
+
+::: {.fragment fragment-index=1}
+However, we assume that responses most items will be consistently biased such that $\overline{Y}_{50\%} \neq 0$
+
+</br>
+
+```{r}
+#| eval: true
+#| echo: false 
+#| code-line-numbers: false
+
+Model_plot(b = 2, title = "Positively Biased Item")
+
+```
+:::
+
+:::
+::::
+
+::: {.fragment fragment-index=2}
+We assume that all forecasters experience this item bias that represents some unpredictable property of the item that is independent of forecasters' ability. 
+:::
+
+
+## Data Generating Process: Variances
+
+
+
+:::: {.columns}
+::: {.column width="50%"}
+
+::: {.fragment fragment-index=1}
+
+We Also assume that individuals tend to make forecasts that vary around the item expected mean accuracy at each quantile. Items may have more or less uncertainty around the means at each quantiles.
+
+```{r}
+#| eval: true
+#| echo: false 
+#| code-line-numbers: false
+
+Model_plot_full(df = 2000, sd = .5,title = "Expected Item Variance for Average Forecaster")
+
+```
+
+:::
+
+:::
+::: {.column width="50%"}
+
+
+::: {.fragment fragment-index=2}
+
+Further, we expect good forecasters to interact with this uncertainty and make forecasts that are on average closer to the item expected mean accuracy.
+
+</br>
+
+```{r}
+#| eval: true
+#| echo: false 
+#| code-line-numbers: false
+
+Model_plot_full(sd = .2, title = "Expected Item Variance for Good Forecaster")
+```
+
+:::
+
+:::
+::::
+
+
+
+
+
+## The Proposed Model
+
+
+We model $Y_{jiq}$, the accuracy of person $j$ to item $i$ at quantile $q$. 
+
+
+:::: {.columns}
+::: {.column width="40%"}
+
+$$Y_{jiq} \sim \mathrm{Student\ T}(\mu_{iq}, \sigma_{ji}, \mathrm{df}_i) \\
+\mu_{iq} = b_i + Q_q \times d_i \\
+\sigma_{ji} = \frac{\sigma_i}{\mathrm{Exp}[a_i \times \theta_j]}$$
+
+
+<ul style="font-size: 22px">  
+
+::: {.fragment fragment-index=1}
+<li>  $b_i$: item bias  </li>
+:::
+
+::: {.fragment fragment-index=2}
+<li>  $d_i$: expected quantile distance. $Q_q$ is a vector of constants that ensures monotonicity of $\mu_{iq}$  </li>
+:::
+
+::: {.fragment fragment-index=3}
+<li>  $\sigma_i$: item difficulty </li>
+:::
+
+::: {.fragment fragment-index=4}
+<li>  $\theta_j$: Forecasting ability, the only **person parameter** in the model </li>
+:::
+
+::: {.fragment fragment-index=5}
+<li>  $a_i$: item discrimination (i.e. the effect of $\theta_j$ on $\sigma_i$)  </li>
+:::
+
+</ul>
+
+
+:::
+::: {.column width="60%"}
+
+
+```{shinylive-r}
+#| standalone: true
+#| viewerHeight: 470
+# Load required libraries
+library(shiny)
+library(munsell)
+library(ggplot2)
+library(bslib)
+
+# Define the UI 
+ui <- bslib::page_fluid(
+  # Main plot area
+  
+
+
+mainPanel(
+    
+    fluidRow(column(12, plotOutput("distPlot", height = "370px", width = "150%")))),
+    
+    fluidRow(
+      column(2, numericInput("b", "b", value = 0, min = -10, max = 10, step = 0.25)),
+      column(2, numericInput("d", "d", value = 1, min = 0.1, max = 10, step = 0.25)),
+      column(2, numericInput("sigma", "sigma", value = 1, min = 0, max = 5, step = 0.25)),
+      column(2, numericInput("a", "a", value = 1, min = -3, max = 3, step = 0.25)),
+      column(2, numericInput("theta", "theta", value = 0, min = -4, max = 4, step = 0.25)),
+      column(2, numericInput("df", "df", value = 20, min = 0.1, max = 200, step = 1))))
+  
+
+####### Plot function #######
+
+
+
+library(extraDistr)
+
+theme_set(theme_classic(base_size = 16, 
+                        base_family = 'serif'))
+
+
+
+Model_plot_full <- function( b = 0, d = 2, sd = 1, df = 8, theta = 0, a = 1, title = ""){
+  
+  Q <- c(-2, -1, 0, 1, 2)
+  
+  
+  means <- c(b + Q[1]*d,
+             b + Q[2]*d,
+             b + Q[3]*d,
+             b + Q[4]*d,
+             b + Q[5]*d) 
+  
+  p <- ggplot() +
+    geom_function(fun = dlst, args = list(mu = means[1], sigma = sd/exp(a*theta), df = df), color = "blue") +
+    geom_function(fun = dlst, args = list(mu = means[2], sigma = sd/exp(a*theta), df = df), color = "blue") +
+    geom_function(fun = dlst, args = list(mu = means[3], sigma = sd/exp(a*theta), df = df), color = "blue") +
+    geom_function(fun = dlst, args = list(mu = means[4], sigma = sd/exp(a*theta), df = df), color = "blue") +
+    geom_function(fun = dlst, args = list(mu = means[5], sigma = sd/exp(a*theta), df = df), color = "blue") +
+    geom_segment(aes(x = means[1], xend = means[1], y = 0, yend = dlst(means[1], mu = means[1], sigma = sd/exp(a*theta), df =df)), linetype = 2) +
+    annotate("text", x= means[1], y = dlst(means[1], mu = means[1], sigma = sd/exp(a*theta), df =df) +.05, label="5%") +
+    geom_segment(aes(x = means[2], xend = means[2], y = 0, yend = dlst(means[2], mu = means[2], sigma = sd/exp(a*theta), df =df)), linetype = 2) +
+    annotate("text", x= means[2], y = dlst(means[2], mu = means[2], sigma = sd/exp(a*theta), df =df) +.05, label="25%") +
+    geom_segment(aes(x = means[3], xend = means[3], y = 0, yend = dlst(means[3], mu = means[3], sigma = sd/exp(a*theta), df =df)), linetype = 2) +
+    annotate("text", x= means[3], y = dlst(means[3], mu = means[3], sigma = sd/exp(a*theta), df =df) +.05, label="50%") +
+    geom_segment(aes(x = means[4], xend = means[4], y = 0, yend = dlst(means[4], mu = means[4], sigma = sd/exp(a*theta), df =df)), linetype = 2) +
+    annotate("text", x= means[4], y = dlst(means[4], mu = means[4], sigma = sd/exp(a*theta), df =df) +.05, label="75%") +
+    geom_segment(aes(x = means[5], xend = means[5], y = 0, yend = dlst(means[5], mu = means[5], sigma = sd/exp(a*theta), df =df)), linetype = 2) +
+    annotate("text", x= means[5], y = dlst(means[5], mu = means[5], sigma = sd/exp(a*theta), df =df) +.05, label="95%") +
+    xlab("Model Implied Accuarcy Distributions at 5 Quantiles") +
+    xlim(-7, 7) +
+    ylab("") +
+    ggtitle(title) +
+    scale_y_continuous(expand = c(0,0),
+                       limits = c(0,dlst(means[3], mu = means[3], sigma = sd/exp(a*theta), df = df) +.1)) +
+    theme(plot.title = element_text(hjust = 0.5)) 
+  
+  
+  print(p)
+}
+
+  
+  
+
+# Define the server function for the Shiny app
+server <- function(input, output, session) {
+  
+  output$distPlot <- renderPlot({
+    # Get values from inputs
+  
+
+    # Create the plot
+    Model_plot_full(b = input$b,
+                    d = input$d,
+                    sd = input$sigma,
+                    df = input$df,
+                    theta = input$theta ,
+                    a = input$a)
+
+  
+  }, res = 100)
+}
+
+
+
+
+# Run the Shiny app
+shinyApp(ui = ui, server = server)
+```
+
+:::
+::::
+
+
+## Data Collection
+
+Item responses were collected across 5 waves of a 7 Wave study. 
+
+</br>
+
+:::: {.columns}
+::: {.column width="40%"}
+
+
+<ul style="font-size: 26px">  
+
+<li>  **32 items** divided across 6 forms (A, B, C, D, E, X)  and **1194 participants** </li>
+
+
+<li> Diverse item domains: Financial, political, technology, energy... </li>
+
+
+<li> 1 week interval between waves, and 1 month from resolution at wave 7  </li>
+
+</ul>
+
+
+</br>
+
+
+
+
+:::
+::: {.column width="60%"}
+
+\renewcommand{\arraystretch}{4}
+```{r}
+#| eval: true
+#| echo: false
+#| code-line-numbers: false
+
+library(kableExtra)
+
+wave_tab <- t(data.frame(c("Form E+A", "Form B+X", "Form C+X", "Form D+X", "Form E+A"),
+                         c("Form A+B", "Form C+X", "Form D+X", "Form E+X", "Form A+B"),
+                         c("Form B+C", "Form D+X", "Form E+X", "Form A+X", "Form B+C"),
+                         c("Form C+D", "Form E+X", "Form A+X", "Form B+X", "Form C+D"),
+                         c("Form D+E", "Form A+X", "Form B+X", "Form C+X", "Form D+E")))
+
+colnames(wave_tab) <- paste("wave", c(1, 2, 4, 6, 7))
+rownames(wave_tab) <- paste("order", 1:5)
+
+
+kable(wave_tab) %>% 
+  row_spec(0, bold = T) %>% 
+  column_spec(1, bold = T) %>% 
+  kable_classic(full_width = T, html_font = "Palatino Linotype") %>% 
+  kable_styling(font_size = 22)
+  
+```
+<div style="font-size: 16px"> *note*. Table 2 from @Zhu_etal_2024. The full experimental designed is detailed in both @Zhu_etal_2024 and @Himmelstein_etal_2024.</div>
+
+
+
+:::
+::::
+
+:::: {.columns}
+
+
+::: {.column width="33%"}
+
+**Form B,C,D:** completed 1 time in either waves 2,4,6 (responses treated as *in sample*)
+
+:::
+
+::: {.column width="33%"}
+
+**Form A, E:** completed 2 times, waves 1, and 7 (responses treated as *out of sample*)
+
+:::
+
+::: {.column width="33%"}
+
+**Form X:** completed 3 times in waves 2, 4, 6. (only responses from wave 2 will be used here, *in sample*)
+
+:::
+::::
+
+
+
+## Model Estimation and Item Parameters
+
+All models were estimated in PyMC [@pymc2023] using Markov Chain Monte Carlo (MCMC) estimation (warmup = 1000, draws = 5000, ~ 40 minutes). All Rhats $\leq 1.01$. 
+
+:::: {.columns}
+::: {.column width="70%"}
+
+
+```{r}
+#| eval: true
+#| echo: false
+#| code-line-numbers: false
+# #| out-width: "80%"
+#| fig-align: left
+
+mod_res <- rio::import("Additional files/summary.csv")
+
+# create plots
+
+b_plot <- mod_res %>% 
+  filter(parameter == "b") %>% 
+ggplot(aes(x = reorder(item, mean), y = mean)) +
+  geom_pointrange(aes(ymin=mean-sd, ymax=mean+sd),
+                  fatten = 1.5) +
+  coord_flip() +
+  xlab("item") +
+  ggtitle("") +
+  ylab("b") +
+  theme(axis.text=element_text(size=10))
+
+d_plot <- mod_res %>% 
+  filter(parameter == "d") %>% 
+ggplot(aes(x = reorder(item, mean), y = exp(mean))) +
+  geom_pointrange(aes(ymin=exp(mean-sd), ymax=exp(mean+sd)),
+                  fatten = 1.5) +
+  coord_flip() +
+  xlab("") +
+  ggtitle("") +
+  ylab("d") +
+  theme(axis.text=element_text(size=10))
+
+
+sigma_plot <- mod_res %>% 
+  filter(parameter == "sigma") %>% 
+ggplot(aes(x = reorder(item, mean), y = exp(mean))) +
+  geom_pointrange(aes(ymin=exp(mean-sd), ymax=exp(mean+sd)),
+                  fatten = 1.5) +
+  coord_flip() +
+  xlab("") +
+  ggtitle("") +
+  ylab("\u03C3") +
+  theme(axis.text=element_text(size=10))
+
+a_plot <- mod_res %>% 
+  filter(parameter == "a") %>% 
+ggplot(aes(x = reorder(item, mean), y = exp(mean))) +
+  geom_pointrange(aes(ymin=exp(mean-sd), ymax=exp(mean+sd)),
+                  fatten = 1.5) +
+  coord_flip() +
+  xlab("") +
+  ggtitle("") +
+  ylab("a") +
+  theme(axis.text=element_text(size=10))
+
+
+df_plot <- mod_res %>% 
+  filter(parameter == "nu") %>% 
+ggplot(aes(x = reorder(item, mean), y = mean)) +
+  geom_pointrange(aes(ymin=mean-sd, ymax=mean+sd),
+                  fatten = 1.5) +
+  coord_flip() +
+  xlab("") +
+  ggtitle("") +
+  ylab("df") +
+  theme(axis.text=element_text(size=10))
+
+
+
+gridExtra::grid.arrange(b_plot, d_plot, sigma_plot, a_plot, df_plot,
+                        nrow = 1)
+```
+
+
+:::
+::: {.column width="30%"}
+
+
+</br>
+
+
+```{r}
+#| eval: true
+#| echo: false
+#| code-line-numbers: false
+
+# correlation among item parameters (maybe highlight high correlations later)
+
+
+`%!in%` <- Negate(`%in%`) 
+
+par_tab <- mod_res %>% 
+  filter(parameter %!in% c("theta", "G_diff")) %>% 
+    select(parameter, mean, index) %>% 
+      pivot_wider(names_from = parameter, values_from = mean) %>% 
+          mutate(a = exp(a),
+                 d = exp(d),
+                 sigma = exp(sigma))
+
+cor_tab <- data.frame(round(cor(par_tab[,-1], use = "complete.obs"), 2))
+  
+
+kableExtra::kbl(cor_tab, caption = "Item Parameters Correlations") %>% 
+  row_spec(0, bold = T) %>% 
+  column_spec(1, bold = T) %>% 
+  kable_classic(full_width = T, html_font = "Palatino Linotype") %>% 
+  kable_styling(font_size = 18)
+
+```
+
+
+:::
+::::
+
+
+## Person Parameter: $\theta$
+
+:::: {.columns}
+::: {.column width="40%"}
+
+The distribution of $\theta$ for the 1194 forecasters (better forecasters have higher $\theta$ values).
+
+
+
+```{r}
+
+mod_res %>% 
+  filter(parameter == "theta") %>% 
+    ggplot(aes(x = mean)) +
+    geom_density() +
+    xlab("\u03b8")+ 
+    ylab("") +
+    theme(axis.text=element_text(size=16),
+          plot.title = element_text(face="bold", hjust = 0.5),
+           plot.margin = margin(t = 0,  # Top margin
+                             r = 0,  # Right margin
+                             b = 0,  # Bottom margin
+                             l = 0)) +
+    ggtitle("\u03b8 Distribution of 1194 Forecasters") 
+
+```
+<div style="font-size: 16px; margin-top: -16px; text-align:center;"> *note*. The scale $\theta$ parameter was identified by enforcing a standard normal prior.</div>
+
+
+
+:::
+::: {.column width="60%"}
+
+<div style="font-size: 22px"> Forecasters who consistently make the expected forecast are rewarded. </div>
+
+
+![](Additional files/theta_plot.png){width=80%}
+<div style="font-size: 14px"> *note*. In the case of the two top panels, missing person forecast were outside the $Y_{jiq} = [-9; 9]$ range.</div>
+
+:::
+::::
+
+
+## Predicting Out of Sample Accuracy
+
+
+<div style="font-size: 24px"> As per the study design, Waves 1 and 7 responses were treated as *outcome* and Waves 2,4, 6 were treated as *predictors*. </div>
+
+
+:::: {.columns}
+::: {.column width="30%"}
+
+
+
+
+<div style="font-size: 24px; padding-top: 14px;"> The plot shows the correlation between $\theta$ estimated from *predictor* waves to S-scores from both *outcome* waves and *predictor* waves. </div>
+
+
+
+<ul style="font-size: 22px">  
+
+<li> $\theta$ shows strong correlations with S-scores at both Wave 1 and 7. </li>
+
+
+<li> The correlations of S-scores from *predictor* waves with *outcome* waves are slightly higher than $\theta$, but the two metrics are very similar ($r = - .91$). </li>
+
+<li> There is a time effect on how predictable *outcome* waves are, with Waves 7 being more correlated with both $\theta$ and predictor S-scores. </li>
+
+</ul>
+
+
+
+
+
+:::
+::: {.column width="70%"}
+
+![](Additional files/OUS_acc_plot.png){width=95%}
+
+:::
+::::
+
+
+
+
+## Expected Item Information
+
+One advantage of the $\theta$ metric is that it allows for the calculation of *expected item information*, $\mathrm{EI}(\theta)$ :
+
+
+:::: {.columns}
+::: {.column width="40%"}
+
+$$Y_{jiq} \sim \mathrm{Student\ T}(\mu_{iq}, \sigma_{ji}, \mathrm{df}_i) \\
+\mu_{iq} = b_i + Q_q \times d_i \\
+\sigma_{ji} = \frac{\sigma_i}{\mathrm{Exp}[a_i \times \theta_j]}$$
+
+
+<ul style="font-size: 22px">
+
+<li> Items with higher $\sigma_i$ measure more skilled forecasters better (*difficulty*) </li>
+
+<li> Higher $a_i$ implies better measurement within a narrower interval of $\theta$ (*discrimination*) </li>
+
+<li>  $df_i$ functions in a similar way to $\sigma_i$.  </li>
+
+<li>  The parameters within $\mu_{iq}$ do not influence $\mathrm{E} \mathrm{I}(\theta)$ much. </li>
+
+</ul>
+
+
+<div style="font-size: 14px"> **note:** $\mathrm{E} \mathrm{I}(\theta)$ is computed by integrating over $Y_{jiq}[-10;10]$. The current integral assumes that any value of $Y_{jiq}$ within the integration range is equally likely, which is not accurate. This implementation is a general proof of concept. </div>
+
+
+:::
+::: {.column width="60%"}
+
+
+```{shinylive-r}
+#| standalone: true
+#| viewerHeight: 470
+# Load required libraries
+information <- function(a, theta, df, sigma, b, d, q, lb, ub) {
+  
+  # Precompute reused terms
+  sqrt_nu <- sqrt(df)
+  exp_a_theta <- exp(a * theta)
+  exp_2a_theta <- exp(2 * a * theta)
+  
+  # Define terms
+  x1 <- b - lb + d * q
+  x2 <- b + d * q - ub
+  
+  num1 <- exp_a_theta * x1
+  denom1 <- exp_2a_theta * x1^2 + df * sigma^2
+  
+  num2 <- exp_a_theta * x2
+  denom2 <- exp_2a_theta * x2^2 + df * sigma^2
+  
+  atan_term1 <- atan(num1 / (sqrt_nu * sigma))
+  atan_term2 <- atan(num2 / (sqrt_nu * sigma))
+  
+  # Final expression
+  prefactor <- a^2 * exp(-a * theta) * df * (1 + df) * sigma^2
+  
+  result <- prefactor * (
+    -num1 / denom1 + 
+      num2 / denom2 + 
+      atan_term1 / (sqrt_nu * sigma) - 
+      atan_term2 / (sqrt_nu * sigma)
+  )
+  
+  return(result)
+}
+
+
+library(shiny)
+library(munsell)
+library(ggplot2)
+library(bslib)
+
+# Define the UI 
+ui <- bslib::page_fluid(
+  # Main plot area
+  
+  mainPanel(
+    
+    fluidRow(column(12, plotOutput("distPlot", height = "370px", width = "150%")))),
+  
+  fluidRow(
+    column(2, numericInput("b", "b", value = 0, min = -10, max = 10, step = 0.25)),
+    column(2, numericInput("d", "d", value = 1, min = 0.1, max = 10, step = 0.25)),
+    column(2, numericInput("sigma", "sigma", value = 1, min = 0, max = 5, step = 0.25)),
+    column(2, numericInput("a", "a", value = 1, min = -3, max = 3, step = 0.25)),
+    column(2, numericInput("q", "q", value = 0, min = -2, max = 2, step = 1)),
+    column(2, numericInput("df", "df", value = 5, min = 0.1, max = 200, step = 1)))
+)
+
+
+
+server <- function(input, output, session) {
+  
+  output$distPlot <- renderPlot({
+    # Get values from inputs
+    
+    
+    # Create the plot
+    ggplot() +
+      geom_function(fun = information, args = list(a = input$a, 
+                                                   df = input$df, 
+                                                   sigma = input$sigma, 
+                                                   b = input$b,
+                                                   d = input$d, 
+                                                   q = input$q, 
+                                                   lb = -3, 
+                                                   ub = 3), color = "blue") +
+      xlab("\u03b8") +
+      ylab(expression(Epsilon~I*(theta))) +
+      xlim(-6, 6)
+    
+    
+    
+    
+  }, res = 100)
+}
+
+
+
+
+# Run the Shiny app
+shinyApp(ui = ui, server = server)
+```
+
+:::
+::::
+
+
+
+
+## Stability of Item Parameters
+
+Given the complexity of the FPT items, item parameters are likely to change depending on many factors. Still, there seems to be reasonable stability even after a month between Wave 1 and Wave 7 (*test-retest*):
+
+:::: {.columns}
+::: {.column width="30%"}
+
+</br>
+
+Item parameters are fairly stable. $\theta$, on the other hand, shows moderate correlation.
+
+<ul style="font-size: 22px">  
+
+<li>  Time from resolution still has some impact on item parameters and should be accounted for in the model.   </li>
+
+<li>  It is likely that other factors beyond person/item characteristics influence response accuracy.   </li>
+
+</ul>
+
+
+:::
+::: {.column width="70%"}
+
+
+<center>
+![](Additional files/W1_W7_parameters.png){width=80%}
+</center>
+<div style="font-size: 14px"> *note*. Only items from Waves 1 and 7. The $a_i$ parameter requires higher sample sizes to stably estimate, so it was fixed to 1. </div>
+
+:::
+::::
+
+
+
+
+## Takeaways
+
+
+
+## Acknowledgments
+
+
+
+
+
+
+
+
+## References 
+
+<div id="refs"> </div>
+
+
+# Appendix
+
+
+## Negative Log-Likelihood of $\theta$
+
+Negative log-likelihood function of $\theta$ given item parameters and participant response:
+
+```{shinylive-r}
+#| standalone: true
+#| viewerHeight: 470
+
+
+NLL <- function(df, a = 1, theta = 0, b = 0, d = 1, q = 0, Y =.5, sigma = 2) {
+  term1 <- 0.5 * df * log(df)
+  term2 <- 0.5 * (-1 - df) * log(df + (exp(2 * a * theta) * ( -b - d * q + Y)^2) / sigma^2)
+  term3 <- log(exp(-a * theta) * sigma)
+  term4 <- log(beta(df / 2, 1 / 2))
+  
+  result <- term1 + term2 - term3 - term4
+  
+  # return negative LL
+  return(-result)
+}
+
+
+# integration method probably needs to account for likelihood of Y values in the future
+library(shiny)
+library(munsell)
+library(ggplot2)
+library(bslib)
+
+# Define the UI 
+ui <- bslib::page_fluid(
+  # Main plot area
+  
+  mainPanel(
+    
+    fluidRow(column(12, plotOutput("distPlot", height = "370px", width = "150%")))),
+  
+  fluidRow(
+    column(2, numericInput("Y", "Y", value = .5, min = -20, max = 20, step = 1)),
+    column(1, numericInput("b", "b", value = 0, min = -10, max = 10, step = 0.25)),
+    column(1, numericInput("d", "d", value = 1, min = 0.1, max = 10, step = 0.25)),
+    column(1, numericInput("sigma", "sigma", value = 1, min = 0.1, max = 8, step = 0.25)),
+    column(1, numericInput("a", "a", value = 1, min = .1, max = 4, step = 0.25)),
+    column(1, numericInput("q", "q", value = 0, min = -2, max = 2, step = 1)),
+    column(1, numericInput("df", "df", value = 5, min = 0.1, max = 200, step = 1)))
+)
+
+
+
+server <- function(input, output, session) {
+  
+  output$distPlot <- renderPlot({
+    # Get values from inputs
+    
+    
+    # Create the plot
+    ggplot() +
+      geom_function(fun = NLL, args = list(a = input$a, 
+                                           Y = input$Y,
+                                           df = input$df, 
+                                           sigma = input$sigma, 
+                                           b = input$b,
+                                           d = input$d, 
+                                           q = input$q), 
+                                           color = "blue") +
+      xlab("\u03b8") +
+      ylab(expression(NLL*(theta))) +
+      xlim(-6, 6)
+    
+    
+    
+  }, res = 100)
+}
+
+
+
+
+# Run the Shiny app
+shinyApp(ui = ui, server = server)
+
+```
+
+
+
+
+
