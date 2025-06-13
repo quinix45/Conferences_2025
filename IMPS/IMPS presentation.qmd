@@ -3,24 +3,33 @@ title: "Measuring Forecasting Proficiency: An Item Response Theory Approach"
 author: "Fabio Setti"
 institute: "Fordham University"
 
+engine: shinylive
+
 bibliography: Additional files/R packages.bib
 csl: Additional files/apa.csl
+
 title-slide-attributes:
   data-transition: "zoom"
   data-visibility: "uncounted"
+
 format:
-   revealjs:
-      footer: "IMPS 2025"
-      width: 1280
-      height: 720
-      chalkboard: true
-      slide-number: c/t 
-      theme: Fabio_theme/Fabio_theme.scss
-      navigation-mode: linear
-      controls: false
-      auto-stretch: false
-      header-includes:
-        - <script src="Fabio_theme/Fabio_theme.js"></script>
+  revealjs:
+    footer: "IMPS 2025"
+    width: 1280
+    height: 720
+    chalkboard: true
+    slide-number: c/t 
+    theme: Fabio_theme/Fabio_theme.scss
+    navigation-mode: linear
+    controls: false
+    embed-resources: false
+    auto-stretch: false
+    resource-path: 
+      - shinylive-sw.js
+    header-includes:
+      - <script src="Fabio_theme/Fabio_theme.js"></script>
+      - <script src="shinylive-sw.js"></script>
+
 filters:
   - shinylive
 editor: source
@@ -291,113 +300,7 @@ $$Y_{jiq} \sim \mathrm{Student\ T}(\mu_{iq}, \sigma_{ji}, \mathrm{df}_i) \\
 :::
 ::: {.column width="60%"}
 
-
-```{shinylive-r}
-#| standalone: true
-#| viewerHeight: 470
-# Load required libraries
-library(shiny)
-library(munsell)
-library(ggplot2)
-library(bslib)
-
-# Define the UI 
-ui <- bslib::page_fluid(
-  # Main plot area
-  
-
-
-mainPanel(
-    
-    fluidRow(column(12, plotOutput("distPlot", height = "370px", width = "150%")))),
-    
-    fluidRow(
-      column(2, numericInput("b", "b", value = 0, min = -10, max = 10, step = 0.25)),
-      column(2, numericInput("d", "d", value = 1, min = 0.1, max = 10, step = 0.25)),
-      column(2, numericInput("sigma", "sigma", value = 1, min = 0, max = 5, step = 0.25)),
-      column(2, numericInput("a", "a", value = 1, min = -3, max = 3, step = 0.25)),
-      column(2, numericInput("theta", "theta", value = 0, min = -4, max = 4, step = 0.25)),
-      column(2, numericInput("df", "df", value = 20, min = 0.1, max = 200, step = 1))))
-  
-
-####### Plot function #######
-
-
-
-library(extraDistr)
-
-theme_set(theme_classic(base_size = 16, 
-                        base_family = 'serif'))
-
-
-
-Model_plot_full <- function( b = 0, d = 2, sd = 1, df = 8, theta = 0, a = 1, title = ""){
-  
-  Q <- c(-2, -1, 0, 1, 2)
-  
-  
-  means <- c(b + Q[1]*d,
-             b + Q[2]*d,
-             b + Q[3]*d,
-             b + Q[4]*d,
-             b + Q[5]*d) 
-  
-  p <- ggplot() +
-    geom_function(fun = dlst, args = list(mu = means[1], sigma = sd/exp(a*theta), df = df), color = "blue") +
-    geom_function(fun = dlst, args = list(mu = means[2], sigma = sd/exp(a*theta), df = df), color = "blue") +
-    geom_function(fun = dlst, args = list(mu = means[3], sigma = sd/exp(a*theta), df = df), color = "blue") +
-    geom_function(fun = dlst, args = list(mu = means[4], sigma = sd/exp(a*theta), df = df), color = "blue") +
-    geom_function(fun = dlst, args = list(mu = means[5], sigma = sd/exp(a*theta), df = df), color = "blue") +
-    geom_segment(aes(x = means[1], xend = means[1], y = 0, yend = dlst(means[1], mu = means[1], sigma = sd/exp(a*theta), df =df)), linetype = 2) +
-    annotate("text", x= means[1], y = dlst(means[1], mu = means[1], sigma = sd/exp(a*theta), df =df) +.05, label="5%") +
-    geom_segment(aes(x = means[2], xend = means[2], y = 0, yend = dlst(means[2], mu = means[2], sigma = sd/exp(a*theta), df =df)), linetype = 2) +
-    annotate("text", x= means[2], y = dlst(means[2], mu = means[2], sigma = sd/exp(a*theta), df =df) +.05, label="25%") +
-    geom_segment(aes(x = means[3], xend = means[3], y = 0, yend = dlst(means[3], mu = means[3], sigma = sd/exp(a*theta), df =df)), linetype = 2) +
-    annotate("text", x= means[3], y = dlst(means[3], mu = means[3], sigma = sd/exp(a*theta), df =df) +.05, label="50%") +
-    geom_segment(aes(x = means[4], xend = means[4], y = 0, yend = dlst(means[4], mu = means[4], sigma = sd/exp(a*theta), df =df)), linetype = 2) +
-    annotate("text", x= means[4], y = dlst(means[4], mu = means[4], sigma = sd/exp(a*theta), df =df) +.05, label="75%") +
-    geom_segment(aes(x = means[5], xend = means[5], y = 0, yend = dlst(means[5], mu = means[5], sigma = sd/exp(a*theta), df =df)), linetype = 2) +
-    annotate("text", x= means[5], y = dlst(means[5], mu = means[5], sigma = sd/exp(a*theta), df =df) +.05, label="95%") +
-    xlab("Model Implied Accuarcy Distributions at 5 Quantiles") +
-    xlim(-7, 7) +
-    ylab("") +
-    ggtitle(title) +
-    scale_y_continuous(expand = c(0,0),
-                       limits = c(0,dlst(means[3], mu = means[3], sigma = sd/exp(a*theta), df = df) +.1)) +
-    theme(plot.title = element_text(hjust = 0.5)) 
-  
-  
-  print(p)
-}
-
-  
-  
-
-# Define the server function for the Shiny app
-server <- function(input, output, session) {
-  
-  output$distPlot <- renderPlot({
-    # Get values from inputs
-  
-
-    # Create the plot
-    Model_plot_full(b = input$b,
-                    d = input$d,
-                    sd = input$sigma,
-                    df = input$df,
-                    theta = input$theta ,
-                    a = input$a)
-
-  
-  }, res = 100)
-}
-
-
-
-
-# Run the Shiny app
-shinyApp(ui = ui, server = server)
-```
+<iframe width="90%" height="550px" src="https://quinix45.github.io/shinylive_apps/t_model/"> </iframe>
 
 :::
 ::::
@@ -732,100 +635,8 @@ $$Y_{jiq} \sim \mathrm{Student\ T}(\mu_{iq}, \sigma_{ji}, \mathrm{df}_i) \\
 ::: {.column width="60%"}
 
 
-```{shinylive-r}
-#| standalone: true
-#| viewerHeight: 470
-# Load required libraries
-information <- function(a, theta, df, sigma, b, d, q, lb, ub) {
-  
-  # Precompute reused terms
-  sqrt_nu <- sqrt(df)
-  exp_a_theta <- exp(a * theta)
-  exp_2a_theta <- exp(2 * a * theta)
-  
-  # Define terms
-  x1 <- b - lb + d * q
-  x2 <- b + d * q - ub
-  
-  num1 <- exp_a_theta * x1
-  denom1 <- exp_2a_theta * x1^2 + df * sigma^2
-  
-  num2 <- exp_a_theta * x2
-  denom2 <- exp_2a_theta * x2^2 + df * sigma^2
-  
-  atan_term1 <- atan(num1 / (sqrt_nu * sigma))
-  atan_term2 <- atan(num2 / (sqrt_nu * sigma))
-  
-  # Final expression
-  prefactor <- a^2 * exp(-a * theta) * df * (1 + df) * sigma^2
-  
-  result <- prefactor * (
-    -num1 / denom1 + 
-      num2 / denom2 + 
-      atan_term1 / (sqrt_nu * sigma) - 
-      atan_term2 / (sqrt_nu * sigma)
-  )
-  
-  return(result)
-}
+<iframe width="90%" height="550px" src="https://quinix45.github.io/shinylive_apps/Einfo_t_model/"> </iframe>
 
-
-library(shiny)
-library(munsell)
-library(ggplot2)
-library(bslib)
-
-# Define the UI 
-ui <- bslib::page_fluid(
-  # Main plot area
-  
-  mainPanel(
-    
-    fluidRow(column(12, plotOutput("distPlot", height = "370px", width = "150%")))),
-  
-  fluidRow(
-    column(2, numericInput("b", "b", value = 0, min = -10, max = 10, step = 0.25)),
-    column(2, numericInput("d", "d", value = 1, min = 0.1, max = 10, step = 0.25)),
-    column(2, numericInput("sigma", "sigma", value = 1, min = 0, max = 5, step = 0.25)),
-    column(2, numericInput("a", "a", value = 1, min = -3, max = 3, step = 0.25)),
-    column(2, numericInput("q", "q", value = 0, min = -2, max = 2, step = 1)),
-    column(2, numericInput("df", "df", value = 5, min = 0.1, max = 200, step = 1)))
-)
-
-
-
-server <- function(input, output, session) {
-  
-  output$distPlot <- renderPlot({
-    # Get values from inputs
-    
-    
-    # Create the plot
-    ggplot() +
-      geom_function(fun = information, args = list(a = input$a, 
-                                                   df = input$df, 
-                                                   sigma = input$sigma, 
-                                                   b = input$b,
-                                                   d = input$d, 
-                                                   q = input$q, 
-                                                   lb = -3, 
-                                                   ub = 3), color = "blue") +
-      xlab("\u03b8") +
-      ylab(expression(Epsilon~I*(theta))) +
-      xlim(-6, 6)
-    
-    
-    
-    
-  }, res = 100)
-}
-
-
-
-
-# Run the Shiny app
-shinyApp(ui = ui, server = server)
-```
 
 :::
 ::::
@@ -891,84 +702,13 @@ Item parameters are fairly stable. $\theta$, on the other hand, shows moderate c
 
 ## Negative Log-Likelihood of $\theta$
 
+
+
 Negative log-likelihood function of $\theta$ given item parameters and participant response:
 
-```{shinylive-r}
-#| standalone: true
-#| viewerHeight: 470
+<iframe width="90%" height="500px" src="https://quinix45.github.io/shinylive_apps/MLE_theta_model_t/"> </iframe>
 
 
-NLL <- function(df, a = 1, theta = 0, b = 0, d = 1, q = 0, Y =.5, sigma = 2) {
-  term1 <- 0.5 * df * log(df)
-  term2 <- 0.5 * (-1 - df) * log(df + (exp(2 * a * theta) * ( -b - d * q + Y)^2) / sigma^2)
-  term3 <- log(exp(-a * theta) * sigma)
-  term4 <- log(beta(df / 2, 1 / 2))
-  
-  result <- term1 + term2 - term3 - term4
-  
-  # return negative LL
-  return(-result)
-}
-
-
-# integration method probably needs to account for likelihood of Y values in the future
-library(shiny)
-library(munsell)
-library(ggplot2)
-library(bslib)
-
-# Define the UI 
-ui <- bslib::page_fluid(
-  # Main plot area
-  
-  mainPanel(
-    
-    fluidRow(column(12, plotOutput("distPlot", height = "370px", width = "150%")))),
-  
-  fluidRow(
-    column(2, numericInput("Y", "Y", value = .5, min = -20, max = 20, step = 1)),
-    column(1, numericInput("b", "b", value = 0, min = -10, max = 10, step = 0.25)),
-    column(1, numericInput("d", "d", value = 1, min = 0.1, max = 10, step = 0.25)),
-    column(1, numericInput("sigma", "sigma", value = 1, min = 0.1, max = 8, step = 0.25)),
-    column(1, numericInput("a", "a", value = 1, min = .1, max = 4, step = 0.25)),
-    column(1, numericInput("q", "q", value = 0, min = -2, max = 2, step = 1)),
-    column(1, numericInput("df", "df", value = 5, min = 0.1, max = 200, step = 1)))
-)
-
-
-
-server <- function(input, output, session) {
-  
-  output$distPlot <- renderPlot({
-    # Get values from inputs
-    
-    
-    # Create the plot
-    ggplot() +
-      geom_function(fun = NLL, args = list(a = input$a, 
-                                           Y = input$Y,
-                                           df = input$df, 
-                                           sigma = input$sigma, 
-                                           b = input$b,
-                                           d = input$d, 
-                                           q = input$q), 
-                                           color = "blue") +
-      xlab("\u03b8") +
-      ylab(expression(NLL*(theta))) +
-      xlim(-6, 6)
-    
-    
-    
-  }, res = 100)
-}
-
-
-
-
-# Run the Shiny app
-shinyApp(ui = ui, server = server)
-
-```
 
 
 
