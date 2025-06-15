@@ -79,20 +79,18 @@ The Forecasting Proficiency Test [FPT\; @Himmelstein_etal_2024] is a test develo
 
 ::: {.fragment fragment-index=2}
 
-Quantile forecasting items are designed to elicit an individual's subjective cumulative distribution function (CDF) regarding a future continuous outcome.
+Quantile forecasting items are designed to elicit an individual's subjective cumulative distribution function (CDF) regarding a future continuous outcome
 
 :::
 
 
 ::: {.fragment fragment-index=3}
 
-This type of item does not fit neatly into any popular psychometric framework:
+- Each participant provides 5 monotonically increasing responses
 
-- Each participant provides 5 monotonically increasing responses.
+- Responses are unbounded
 
-- Responses are unbounded. 
-
-- *Forecast accuracy* is the measure of interest.  
+- *Forecast accuracy* is the measure of interest 
 :::
 
 ::: {.fragment fragment-index=4}
@@ -108,154 +106,190 @@ This type of item does not fit neatly into any popular psychometric framework:
 
 
 
-Responses to FTP quantile forecast items are on very different scale (e.g. dollars/gallon, thousands of dollars, percentages,...). We define the outcome measure, *historically scales accuracy*, as
+Responses to FTP quantile forecast items are on very different scale (e.g. dollars/gallon, thousands of dollars, percentages,...). We define the outcome measure, *historically scaled accuracy*, as
+
+
+
 
 $$
 Y_i = \frac{\hat{Y}_i - Y_{\mathrm{res},i}}{SD_{Y_{\mathrm{hist},i}}}
 $$
 
 :::: {.columns}
-
-::: {.column width="33%"}
-
-$\hat{Y}_i$: Reported forecast for item $i$ at any quantile. 
-
-:::
+::: {.column width="55%"}
 
 
-::: {.column width="33%"}
+<ul style="font-size: 24px">  
 
-$Y_{\mathrm{res},i}$: The resolution for item $i$ a month after the forecast $\hat{Y}_i$.
+<li>  $\hat{Y}_i$: Reported forecast for item $i$ at any quantile.   </li>
 
-:::
+<li>  $Y_{\mathrm{res},i}$: The resolution for item $i$.   </li>
 
+<li>  $SD_{Y_{\mathrm{hist},i}}$: The $SD$ of the historical time series of item $i$.    </li>
 
-::: {.column width="33%"}
+</ul>
 
-$SD_{Y_{\mathrm{hist},i}}$: The $SD$ of the historical time series of item $i$.  
 
 :::
-
-::::
-
-</br>
+::: {.column width="45%"}
 
 ::: {.fragment fragment-index=1}
 
-This transformation makes $Y_i$ interpretable as standard deviation units away from the resolution.
+$Y_i$: SD units away from the resolution.
 
-
-:::: {.columns}
-::: {.column width="50%"}
-- $Y = 0$ &rarr; forecast, $\hat{Y}_i$, was a perfect forecast
 :::
-::: {.column width="50%"}
 
-- $Y < 0, Y > 0$ &rarr; forecast, $\hat{Y}_i$, was below or above the resolution
+::: {.r-stack}
+
+::: {.fragment fragment-index=1}
+
+```{r}
+ggplot() +
+  xlim(c(-3, 3)) +
+  ylim(c(0, 5)) +
+  xlab(expression(Y[i])) +
+   geom_segment(aes(x = 0, xend = 0, y = 0, yend = 4), linetype = 2, 
+                col = "#1b305c",
+                size = 2)+
+  annotate("text", x = -2, y = 1, label = "Perfect Forecast",
+           size = 7) +
+  theme(axis.ticks.y = element_blank(),
+        axis.title.y =element_blank(),
+        axis.line.y = element_blank(),
+        axis.text.y =  element_blank())
+
+```
+:::
+
+::: {.fragment fragment-index=2}
+
+```{r}
+ggplot() +
+  xlim(c(-3, 3)) +
+  ylim(c(0, 5)) +
+  xlab(expression(Y[i])) +
+   geom_segment(aes(x = 2, xend = 2, y = 0, yend = 4), linetype = 2,
+                col = "#1b305c",
+                size = 2)+
+  annotate("text", x = 0, y = 1, label = "2 SD Above \n Resolution",
+           size = 7) +
+  theme(axis.ticks.y = element_blank(),
+        axis.title.y =element_blank(),
+        axis.line.y = element_blank(),
+        axis.text.y =  element_blank())
+
+
+```
+
+:::
+
+::: {.fragment fragment-index=3}
+
+```{r}
+ggplot() +
+  xlim(c(-3, 3)) +
+  ylim(c(0, 5)) +
+  xlab(expression(Y[i])) +
+   geom_segment(aes(x = -1, xend = -1, y = 0, yend = 4), linetype = 2,
+                col = "#1b305c",
+                size = 2)+
+  annotate("text", x = 0, y = 1, label = "1 SD Below \n Resolution",
+           size = 7) +
+  theme(axis.ticks.y = element_blank(),
+        axis.title.y =element_blank(),
+        axis.line.y = element_blank(),
+        axis.text.y =  element_blank())
+
+
+```
+
+:::
+
+:::
+
 
 :::
 ::::
 
-:::
-
-## Data Generating Process: Means
-
+## Assumptions About Item Behavior
 
 ```{r}
 source("Functions.R")
 ```
 
-
 :::: {.columns}
 ::: {.column width="50%"}
 
-At each quantile $q$ for item $i$, we estimate item mean accuracy, with each quantile mean accuracy being equally spaced. *unbiased* items will have $\overline{Y}_{50\%} = 0$. 
+**Assumption 1:** Some items are either unbiased or bias (*irreducible uncertainty*) 
+
+::: {.panel-tabset}
+
+### Unbiased Item
 
 ```{r}
 #| eval: true
 #| echo: false 
 #| code-line-numbers: false
 
-Model_plot(title = "Unbiased Item")
+Model_plot(title = "")
 
 ```
 
 
+### Biased Item 
+
+```{r}
+#| eval: true
+#| echo: false 
+#| code-line-numbers: false
+
+Model_plot(b = 2, title = "")
+
+```
+
+ 
 :::
+ 
+:::
+
 ::: {.column width="50%"}
 
+**Assumption 2:** Good forecasters will more closely approach the expected means at the 5 quantiles 
 
 
-::: {.fragment fragment-index=1}
-However, we assume that responses most items will be consistently biased such that $\overline{Y}_{50\%} \neq 0$
+::: {.panel-tabset}
 
-</br>
+### Average Forecaster
+
 
 ```{r}
 #| eval: true
 #| echo: false 
 #| code-line-numbers: false
 
-Model_plot(b = 2, title = "Positively Biased Item")
+Model_plot_full(b = -1, df = 2000, sd = 1, title = "Expected Distribution for Average Forecaster")
 
 ```
+
+
+### Good Forecaster
+
+
+
+```{r}
+#| eval: true
+#| echo: false 
+#| code-line-numbers: false
+
+Model_plot_full( b = -1, df = 2000, sd = .2, title = "Expected Distribution for Good Forecaster")
+
+```
+
 :::
 
 :::
+
 ::::
-
-::: {.fragment fragment-index=2}
-We assume that all forecasters experience this item bias that represents some unpredictable property of the item that is independent of forecasters' ability. 
-:::
-
-
-## Data Generating Process: Variances
-
-
-
-:::: {.columns}
-::: {.column width="50%"}
-
-::: {.fragment fragment-index=1}
-
-We Also assume that individuals tend to make forecasts that vary around the item expected mean accuracy at each quantile. Items may have more or less uncertainty around the means at each quantiles.
-
-```{r}
-#| eval: true
-#| echo: false 
-#| code-line-numbers: false
-
-Model_plot_full(df = 2000, sd = .5,title = "Expected Item Variance for Average Forecaster")
-
-```
-
-:::
-
-:::
-::: {.column width="50%"}
-
-
-::: {.fragment fragment-index=2}
-
-Further, we expect good forecasters to interact with this uncertainty and make forecasts that are on average closer to the item expected mean accuracy.
-
-</br>
-
-```{r}
-#| eval: true
-#| echo: false 
-#| code-line-numbers: false
-
-Model_plot_full(sd = .2, title = "Expected Item Variance for Good Forecaster")
-```
-
-:::
-
-:::
-::::
-
-
-
 
 
 ## The Proposed Model
@@ -410,6 +444,14 @@ All models were estimated in PyMC [@pymc2023] using Markov Chain Monte Carlo (MC
 
 mod_res <- rio::import("Additional files/summary.csv")
 
+design <- c(
+"
+ AABBCC
+ #DDEE#
+ "
+)
+
+
 # create plots
 
 b_plot <- mod_res %>% 
@@ -501,10 +543,13 @@ par_tab <- mod_res %>%
                  d = exp(d),
                  sigma = exp(sigma))
 
+
+colnames(par_tab)[5] <- "df"
+
 cor_tab <- data.frame(round(cor(par_tab[,-1], use = "complete.obs"), 2))
   
 
-kableExtra::kbl(cor_tab, caption = "Item Parameters Correlations") %>% 
+kableExtra::kbl(cor_tab, caption = "BetweenItem Parameters Correlations") %>% 
   row_spec(0, bold = T) %>% 
   column_spec(1, bold = T) %>% 
   kable_classic(full_width = T, html_font = "Palatino Linotype") %>% 
@@ -550,7 +595,7 @@ mod_res %>%
 :::
 ::: {.column width="60%"}
 
-<div style="font-size: 22px"> Forecasters who consistently make the expected forecast are rewarded. </div>
+<div style="font-size: 22px"> Forecasters who consistently approach the expected forecasts are rewarded. </div>
 
 
 ![](Additional files/theta_plot.png){width=80%}
@@ -566,26 +611,18 @@ mod_res %>%
 <div style="font-size: 24px"> As per the study design, Waves 1 and 7 responses were treated as *outcome* and Waves 2,4, 6 were treated as *predictors*. </div>
 
 
+
+
 :::: {.columns}
 ::: {.column width="30%"}
 
 
+</br>
+</br>
+
+<div style="font-size: 26px; padding-top: 14px;"> **S-scores (SS):** A proper scoring rule that is normally used to score quantile forecasts (smaller SS, better forecast) </div>
 
 
-<div style="font-size: 24px; padding-top: 14px;"> The plot shows the correlation between $\theta$ estimated from *predictor* waves to S-scores from both *outcome* waves and *predictor* waves. </div>
-
-
-
-<ul style="font-size: 22px">  
-
-<li> $\theta$ shows strong correlations with S-scores at both Wave 1 and 7. </li>
-
-
-<li> The correlations of S-scores from *predictor* waves with *outcome* waves are slightly higher than $\theta$, but the two metrics are very similar ($r = - .91$). </li>
-
-<li> There is a time effect on how predictable *outcome* waves are, with Waves 7 being more correlated with both $\theta$ and predictor S-scores. </li>
-
-</ul>
 
 
 
@@ -628,7 +665,7 @@ $$Y_{jiq} \sim \mathrm{Student\ T}(\mu_{iq}, \sigma_{ji}, \mathrm{df}_i) \\
 </ul>
 
 
-<div style="font-size: 14px"> **note:** $\mathrm{E} \mathrm{I}(\theta)$ is computed by integrating over $Y_{jiq}[-10;10]$. The current integral assumes that any value of $Y_{jiq}$ within the integration range is equally likely, which is not accurate. This implementation is a general proof of concept. </div>
+<!-- <div style="font-size: 14px"> **note:** $\mathrm{E} \mathrm{I}(\theta)$ is computed by integrating over $Y_{jiq}[-10;10]$. The current integral assumes that any value of $Y_{jiq}$ within the integration range is equally likely, which is not accurate. This implementation is a general proof of concept. </div> -->
 
 
 :::
@@ -711,6 +748,79 @@ Negative log-likelihood function of $\theta$ given item parameters and participa
 
 
 
+## Item Parameters By Item
 
 
+
+```{r}
+#| eval: true
+#| echo: false
+#| code-line-numbers: false
+# #| out-width: "80%"
+
+
+# create plots
+
+b_plot <- mod_res %>% 
+  filter(parameter == "b") %>% 
+ggplot(aes(x = reorder(item, mean), y = mean)) +
+  geom_pointrange(aes(ymin=mean-sd, ymax=mean+sd),
+                  fatten = 1.5) +
+  coord_flip() +
+  xlab("item") +
+  ggtitle("") +
+  ylab("b") +
+  theme(axis.text=element_text(size=10))
+
+d_plot <- mod_res %>% 
+  filter(parameter == "d") %>% 
+ggplot(aes(x = reorder(item, mean), y = exp(mean))) +
+  geom_pointrange(aes(ymin=exp(mean-sd), ymax=exp(mean+sd)),
+                  fatten = 1.5) +
+  coord_flip() +
+  xlab("") +
+  ggtitle("") +
+  ylab("d") +
+  theme(axis.text=element_text(size=10))
+
+
+sigma_plot <- mod_res %>% 
+  filter(parameter == "sigma") %>% 
+ggplot(aes(x = reorder(item, mean), y = exp(mean))) +
+  geom_pointrange(aes(ymin=exp(mean-sd), ymax=exp(mean+sd)),
+                  fatten = 1.5) +
+  coord_flip() +
+  xlab("") +
+  ggtitle("") +
+  ylab("\u03C3") +
+  theme(axis.text=element_text(size=10))
+
+a_plot <- mod_res %>% 
+  filter(parameter == "a") %>% 
+ggplot(aes(x = reorder(item, mean), y = exp(mean))) +
+  geom_pointrange(aes(ymin=exp(mean-sd), ymax=exp(mean+sd)),
+                  fatten = 1.5) +
+  coord_flip() +
+  xlab("") +
+  ggtitle("") +
+  ylab("a") +
+  theme(axis.text=element_text(size=10))
+
+
+df_plot <- mod_res %>% 
+  filter(parameter == "nu") %>% 
+ggplot(aes(x = reorder(item, mean), y = mean)) +
+  geom_pointrange(aes(ymin=mean-sd, ymax=mean+sd),
+                  fatten = 1.5) +
+  coord_flip() +
+  xlab("") +
+  ggtitle("") +
+  ylab("df") +
+  theme(axis.text=element_text(size=10))
+
+
+
+gridExtra::grid.arrange(b_plot, d_plot, sigma_plot, a_plot, df_plot,
+                        nrow = 1)
+```
 

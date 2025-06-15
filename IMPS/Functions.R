@@ -31,7 +31,7 @@ Model_plot <- function(b = 0, d = 2, sd = 1, df = 8, theta = 0, a = 0, title = "
     annotate("text", x= means[4], y = dlst(means[4], mu = means[4], sigma = sd/exp(theta), df =df) +.05, label="75%") +
     geom_segment(aes(x = means[5], xend = means[5], y = 0, yend = dlst(means[5], mu = means[5], sigma = sd/exp(theta), df =df)), linetype = 2) +
     annotate("text", x= means[5], y = dlst(means[5], mu = means[5], sigma = sd/exp(theta), df =df) +.05, label="95%") +
-    xlab("Expected Item Accuracy Distribution") +
+    xlab("Expected Item Accuracy Means at 5 Quantiles") +
     ylab("") +
     ggtitle(title) +
     xlim(-7, 7) +
@@ -65,11 +65,11 @@ Model_plot_full <- function(b = 0, d = 2, sd = 1, df = 8, theta = 0, a = 0, titl
              b + Q[5]*d) 
   
   p <- ggplot() +
-    geom_function(fun = dlst, args = list(mu = means[1], sigma = sd/exp(theta), df = df), color = "blue") +
-    geom_function(fun = dlst, args = list(mu = means[2], sigma = sd/exp(theta), df = df), color = "blue") +
-    geom_function(fun = dlst, args = list(mu = means[3], sigma = sd/exp(theta), df = df), color = "blue") +
-    geom_function(fun = dlst, args = list(mu = means[4], sigma = sd/exp(theta), df = df), color = "blue") +
-    geom_function(fun = dlst, args = list(mu = means[5], sigma = sd/exp(theta), df = df), color = "blue") +
+    geom_function(fun = dlst, args = list(mu = means[1], sigma = sd/exp(theta), df = df), color = "#1b305c") +
+    geom_function(fun = dlst, args = list(mu = means[2], sigma = sd/exp(theta), df = df), color = "#1b305c") +
+    geom_function(fun = dlst, args = list(mu = means[3], sigma = sd/exp(theta), df = df), color = "#1b305c") +
+    geom_function(fun = dlst, args = list(mu = means[4], sigma = sd/exp(theta), df = df), color = "#1b305c") +
+    geom_function(fun = dlst, args = list(mu = means[5], sigma = sd/exp(theta), df = df), color = "#1b305c") +
     geom_segment(aes(x = means[1], xend = means[1], y = 0, yend = dlst(means[1], mu = means[1], sigma = sd/exp(theta), df =df)), linetype = 2) +
     annotate("text", x= means[1], y = dlst(means[1], mu = means[1], sigma = sd/exp(theta), df =df) +.05, label="5%") +
     geom_segment(aes(x = means[2], xend = means[2], y = 0, yend = dlst(means[2], mu = means[2], sigma = sd/exp(theta), df =df)), linetype = 2) +
@@ -82,6 +82,7 @@ Model_plot_full <- function(b = 0, d = 2, sd = 1, df = 8, theta = 0, a = 0, titl
     annotate("text", x= means[5], y = dlst(means[5], mu = means[5], sigma = sd/exp(theta), df =df) +.05, label="95%") +
     xlab("Model Implied Accuarcy Distributions at 5 Quantiles") +
     xlim(-7, 7) +
+    ylab("") +
     ggtitle(title) +
     scale_y_continuous(expand = c(0,0),
                        limits = c(0,dlst(means[3], mu = means[3], sigma = sd/exp(theta), df = df) +.1))+

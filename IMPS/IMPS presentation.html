@@ -185,15 +185,13 @@ Fabio Setti
 </div>
 </div><div class="column" style="width:60%;">
 <div class="fragment" data-fragment-index="2">
-<p>Quantile forecasting items are designed to elicit an individual’s subjective cumulative distribution function (CDF) regarding a future continuous outcome.</p>
+<p>Quantile forecasting items are designed to elicit an individual’s subjective cumulative distribution function (CDF) regarding a future continuous outcome</p>
 </div>
 <div class="fragment" data-fragment-index="3">
-<p>This type of item does not fit neatly into any popular psychometric framework:</p>
 <ul>
-<li><p>Each participant provides 5 monotonically increasing responses.</p></li>
-<li><p>Responses are unbounded.</p></li>
-<li><p><em>Forecast accuracy</em> is the measure of interest.<br>
-</p></li>
+<li><p>Each participant provides 5 monotonically increasing responses</p></li>
+<li><p>Responses are unbounded</p></li>
+<li><p><em>Forecast accuracy</em> is the measure of interest</p></li>
 </ul>
 </div>
 <div class="fragment" data-fragment-index="4">
@@ -203,38 +201,40 @@ Fabio Setti
 </section>
 <section id="defining-forecast-accuracy" class="slide level2">
 <h2>Defining Forecast Accuracy</h2>
-<p>Responses to FTP quantile forecast items are on very different scale (e.g.&nbsp;dollars/gallon, thousands of dollars, percentages,…). We define the outcome measure, <em>historically scales accuracy</em>, as</p>
+<p>Responses to FTP quantile forecast items are on very different scale (e.g.&nbsp;dollars/gallon, thousands of dollars, percentages,…). We define the outcome measure, <em>historically scaled accuracy</em>, as</p>
 <p><span class="math display">\[
 Y_i = \frac{\hat{Y}_i - Y_{\mathrm{res},i}}{SD_{Y_{\mathrm{hist},i}}}
 \]</span></p>
 <div class="columns">
-<div class="column" style="width:33%;">
-<p><span class="math inline">\(\hat{Y}_i\)</span>: Reported forecast for item <span class="math inline">\(i\)</span> at any quantile.</p>
-</div><div class="column" style="width:33%;">
-<p><span class="math inline">\(Y_{\mathrm{res},i}\)</span>: The resolution for item <span class="math inline">\(i\)</span> a month after the forecast <span class="math inline">\(\hat{Y}_i\)</span>.</p>
-</div><div class="column" style="width:33%;">
-<p><span class="math inline">\(SD_{Y_{\mathrm{hist},i}}\)</span>: The <span class="math inline">\(SD\)</span> of the historical time series of item <span class="math inline">\(i\)</span>.</p>
-</div></div>
-<p><br></p>
+<div class="column" style="width:55%;">
+<ul style="font-size: 24px">
+<li>
+<span class="math inline">\(\hat{Y}_i\)</span>: Reported forecast for item <span class="math inline">\(i\)</span> at any quantile.
+</li>
+<li>
+<span class="math inline">\(Y_{\mathrm{res},i}\)</span>: The resolution for item <span class="math inline">\(i\)</span>.
+</li>
+<li>
+<span class="math inline">\(SD_{Y_{\mathrm{hist},i}}\)</span>: The <span class="math inline">\(SD\)</span> of the historical time series of item <span class="math inline">\(i\)</span>.
+</li>
+</ul>
+</div><div class="column" style="width:45%;">
 <div class="fragment" data-fragment-index="1">
-<p>This transformation makes <span class="math inline">\(Y_i\)</span> interpretable as standard deviation units away from the resolution.</p>
-<div class="columns">
-<div class="column" style="width:50%;">
-<ul>
-<li><span class="math inline">\(Y = 0\)</span> → forecast, <span class="math inline">\(\hat{Y}_i\)</span>, was a perfect forecast</li>
-</ul>
-</div><div class="column" style="width:50%;">
-<ul>
-<li><span class="math inline">\(Y &lt; 0, Y &gt; 0\)</span> → forecast, <span class="math inline">\(\hat{Y}_i\)</span>, was below or above the resolution</li>
-</ul>
-</div></div>
+<p><span class="math inline">\(Y_i\)</span>: SD units away from the resolution.</p>
 </div>
-</section>
-<section id="data-generating-process-means" class="slide level2">
-<h2>Data Generating Process: Means</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p>At each quantile <span class="math inline">\(q\)</span> for item <span class="math inline">\(i\)</span>, we estimate item mean accuracy, with each quantile mean accuracy being equally spaced. <em>unbiased</em> items will have <span class="math inline">\(\overline{Y}_{50\%} = 0\)</span>.</p>
+<div class="r-stack">
+<div class="fragment" data-fragment-index="1">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="IMPS-presentation_files/figure-revealjs/unnamed-chunk-2-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment" data-fragment-index="2">
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -244,10 +244,8 @@ Y_i = \frac{\hat{Y}_i - Y_{\mathrm{res},i}}{SD_{Y_{\mathrm{hist},i}}}
 </div>
 </div>
 </div>
-</div><div class="column" style="width:50%;">
-<div class="fragment" data-fragment-index="1">
-<p>However, we assume that responses most items will be consistently biased such that <span class="math inline">\(\overline{Y}_{50\%} \neq 0\)</span></p>
-<p><br></p>
+</div>
+<div class="fragment" data-fragment-index="3">
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -258,37 +256,66 @@ Y_i = \frac{\hat{Y}_i - Y_{\mathrm{res},i}}{SD_{Y_{\mathrm{hist},i}}}
 </div>
 </div>
 </div>
-</div></div>
-<div class="fragment" data-fragment-index="2">
-<p>We assume that all forecasters experience this item bias that represents some unpredictable property of the item that is independent of forecasters’ ability.</p>
 </div>
+</div></div>
 </section>
-<section id="data-generating-process-variances" class="slide level2">
-<h2>Data Generating Process: Variances</h2>
+<section id="assumptions-about-item-behavior" class="slide level2">
+<h2>Assumptions About Item Behavior</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<div class="fragment" data-fragment-index="1">
-<p>We Also assume that individuals tend to make forecasts that vary around the item expected mean accuracy at each quantile. Items may have more or less uncertainty around the means at each quantiles.</p>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="IMPS-presentation_files/figure-revealjs/unnamed-chunk-5-1.png" width="960"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-</div><div class="column" style="width:50%;">
-<div class="fragment" data-fragment-index="2">
-<p>Further, we expect good forecasters to interact with this uncertainty and make forecasts that are on average closer to the item expected mean accuracy.</p>
-<p><br></p>
+<p><strong>Assumption 1:</strong> Some items are either unbiased or bias (<em>irreducible uncertainty</em>)</p>
+<div class="panel-tabset">
+<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Unbiased Item</a></li><li><a href="#tabset-1-2">Biased Item</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1">
 <div class="cell">
 <div class="cell-output-display">
 <div>
 <figure>
 <p><img data-src="IMPS-presentation_files/figure-revealjs/unnamed-chunk-6-1.png" width="960"></p>
 </figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-1-2">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="IMPS-presentation_files/figure-revealjs/unnamed-chunk-7-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<p><strong>Assumption 2:</strong> Good forecasters will more closely approach the expected means at the 5 quantiles</p>
+<div class="panel-tabset">
+<ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1">Average Forecaster</a></li><li><a href="#tabset-2-2">Good Forecaster</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="IMPS-presentation_files/figure-revealjs/unnamed-chunk-8-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-2-2">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="IMPS-presentation_files/figure-revealjs/unnamed-chunk-9-1.png" width="960"></p>
+</figure>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -434,7 +461,7 @@ Diverse item domains: Financial, political, technology, energy…
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="IMPS-presentation_files/figure-revealjs/unnamed-chunk-8-1.png" width="960"></p>
+<p><img data-src="IMPS-presentation_files/figure-revealjs/unnamed-chunk-11-1.png" width="960"></p>
 </figure>
 </div>
 </div>
@@ -444,14 +471,14 @@ Diverse item domains: Financial, political, technology, energy…
 <div class="cell">
 <div class="cell-output-display">
 <table class="lightable-classic table caption-top" data-quarto-postprocess="true" style="font-family: Palatino Linotype; margin-left: auto; margin-right: auto; font-size: 18px; margin-left: auto; margin-right: auto;">
-<caption>Item Parameters Correlations</caption>
+<caption>BetweenItem Parameters Correlations</caption>
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th" style="text-align: left; font-weight: bold;"></th>
 <th data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold;">a</th>
 <th data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold;">b</th>
 <th data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold;">d</th>
-<th data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold;">nu</th>
+<th data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold;">df</th>
 <th data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold;">sigma</th>
 </tr>
 </thead>
@@ -481,7 +508,7 @@ Diverse item domains: Financial, political, technology, energy…
 <td style="text-align: right;">0.86</td>
 </tr>
 <tr class="even">
-<td style="text-align: left; font-weight: bold;">nu</td>
+<td style="text-align: left; font-weight: bold;">df</td>
 <td style="text-align: right;">-0.57</td>
 <td style="text-align: right;">-0.18</td>
 <td style="text-align: right;">0.35</td>
@@ -511,7 +538,7 @@ Diverse item domains: Financial, political, technology, energy…
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="IMPS-presentation_files/figure-revealjs/unnamed-chunk-10-1.png" width="960"></p>
+<p><img data-src="IMPS-presentation_files/figure-revealjs/unnamed-chunk-13-1.png" width="960"></p>
 </figure>
 </div>
 </div>
@@ -521,7 +548,7 @@ Diverse item domains: Financial, political, technology, energy…
 </div>
 </div><div class="column" style="width:60%;">
 <div style="font-size: 22px">
-Forecasters who consistently make the expected forecast are rewarded.
+Forecasters who consistently approach the expected forecasts are rewarded.
 </div>
 <img data-src="Additional%20files/theta_plot.png" style="width:80.0%">
 <div style="font-size: 14px">
@@ -536,20 +563,10 @@ As per the study design, Waves 1 and 7 responses were treated as <em>outcome</em
 </div>
 <div class="columns">
 <div class="column" style="width:30%;">
-<div style="font-size: 24px; padding-top: 14px;">
-The plot shows the correlation between <span class="math inline">\(\theta\)</span> estimated from <em>predictor</em> waves to S-scores from both <em>outcome</em> waves and <em>predictor</em> waves.
+<p><br> <br></p>
+<div style="font-size: 26px; padding-top: 14px;">
+<strong>S-scores (SS):</strong> A proper scoring rule that is normally used to score quantile forecasts (smaller SS, better forecast)
 </div>
-<ul style="font-size: 22px">
-<li>
-<span class="math inline">\(\theta\)</span> shows strong correlations with S-scores at both Wave 1 and 7.
-</li>
-<li>
-The correlations of S-scores from <em>predictor</em> waves with <em>outcome</em> waves are slightly higher than <span class="math inline">\(\theta\)</span>, but the two metrics are very similar (<span class="math inline">\(r = - .91\)</span>).
-</li>
-<li>
-There is a time effect on how predictable <em>outcome</em> waves are, with Waves 7 being more correlated with both <span class="math inline">\(\theta\)</span> and predictor S-scores.
-</li>
-</ul>
 </div><div class="column" style="width:70%;">
 <p><img data-src="Additional%20files/OUS_acc_plot.png" style="width:95.0%"></p>
 </div></div>
@@ -576,9 +593,7 @@ Higher <span class="math inline">\(a_i\)</span> implies better measurement withi
 The parameters within <span class="math inline">\(\mu_{iq}\)</span> do not influence <span class="math inline">\(\mathrm{E} \mathrm{I}(\theta)\)</span> much.
 </li>
 </ul>
-<div style="font-size: 14px">
-<strong>note:</strong> <span class="math inline">\(\mathrm{E} \mathrm{I}(\theta)\)</span> is computed by integrating over <span class="math inline">\(Y_{jiq}[-10;10]\)</span>. The current integral assumes that any value of <span class="math inline">\(Y_{jiq}\)</span> within the integration range is equally likely, which is not accurate. This implementation is a general proof of concept.
-</div>
+<!-- <div style="font-size: 14px"> **note:** $\mathrm{E} \mathrm{I}(\theta)$ is computed by integrating over $Y_{jiq}[-10;10]$. The current integral assumes that any value of $Y_{jiq}$ within the integration range is equally likely, which is not accurate. This implementation is a general proof of concept. </div> -->
 </div><div class="column" style="width:60%;">
 <iframe width="90%" height="550px" src="https://quinix45.github.io/shinylive_apps/Einfo_t_model/">
 </iframe>
@@ -638,6 +653,18 @@ Zhu, S. M., Budescu, D., Petrov, N., Karger, E., &amp; Himmelstein, M. (2024, No
 <p>Negative log-likelihood function of <span class="math inline">\(\theta\)</span> given item parameters and participant response:</p>
 <iframe width="90%" height="500px" src="https://quinix45.github.io/shinylive_apps/MLE_theta_model_t/">
 </iframe>
+</section>
+<section id="item-parameters-by-item" class="slide level2">
+<h2>Item Parameters By Item</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="IMPS-presentation_files/figure-revealjs/unnamed-chunk-14-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
 
 </section></section>
     </div>
