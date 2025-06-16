@@ -39,17 +39,11 @@ editor: source
 ## Quantile Forecasts
 
 
-```{r}
-#| warning: false
 
-# ggplot defaults and tidyverse
+::: {.cell}
 
-library(tidyverse)
-theme_set(theme_classic(base_size = 16, 
-                        base_family = 'serif'))
+:::
 
-mod_res <- rio::import("Additional files/summary.csv")
-```
 
 
 
@@ -145,65 +139,36 @@ $Y_i$: SD units away from the resolution.
 
 ::: {.fragment fragment-index=1}
 
-```{r}
-ggplot() +
-  xlim(c(-3, 3)) +
-  ylim(c(0, 5)) +
-  xlab(expression(Y[i])) +
-   geom_segment(aes(x = 0, xend = 0, y = 0, yend = 4), linetype = 2, 
-                col = "#1b305c",
-                size = 2)+
-  annotate("text", x = -2, y = 1, label = "Perfect Forecast",
-           size = 7) +
-  theme(axis.ticks.y = element_blank(),
-        axis.title.y =element_blank(),
-        axis.line.y = element_blank(),
-        axis.text.y =  element_blank())
 
-```
+::: {.cell}
+::: {.cell-output-display}
+![](IMPS-presentation_files/figure-revealjs/unnamed-chunk-2-1.png){width=960}
+:::
+:::
+
 :::
 
 ::: {.fragment fragment-index=2}
 
-```{r}
-ggplot() +
-  xlim(c(-3, 3)) +
-  ylim(c(0, 5)) +
-  xlab(expression(Y[i])) +
-   geom_segment(aes(x = 2, xend = 2, y = 0, yend = 4), linetype = 2,
-                col = "#1b305c",
-                size = 2)+
-  annotate("text", x = 0, y = 1, label = "2 SD Above \n Resolution",
-           size = 7) +
-  theme(axis.ticks.y = element_blank(),
-        axis.title.y =element_blank(),
-        axis.line.y = element_blank(),
-        axis.text.y =  element_blank())
 
+::: {.cell}
+::: {.cell-output-display}
+![](IMPS-presentation_files/figure-revealjs/unnamed-chunk-3-1.png){width=960}
+:::
+:::
 
-```
 
 :::
 
 ::: {.fragment fragment-index=3}
 
-```{r}
-ggplot() +
-  xlim(c(-3, 3)) +
-  ylim(c(0, 5)) +
-  xlab(expression(Y[i])) +
-   geom_segment(aes(x = -1, xend = -1, y = 0, yend = 4), linetype = 2,
-                col = "#1b305c",
-                size = 2)+
-  annotate("text", x = 0, y = 1, label = "1 SD Below \n Resolution",
-           size = 7) +
-  theme(axis.ticks.y = element_blank(),
-        axis.title.y =element_blank(),
-        axis.line.y = element_blank(),
-        axis.text.y =  element_blank())
 
+::: {.cell}
+::: {.cell-output-display}
+![](IMPS-presentation_files/figure-revealjs/unnamed-chunk-4-1.png){width=960}
+:::
+:::
 
-```
 
 :::
 
@@ -215,9 +180,11 @@ ggplot() +
 
 ## Assumptions About Item Behavior
 
-```{r}
-source("Functions.R")
-```
+
+::: {.cell}
+
+:::
+
 
 :::: {.columns}
 ::: {.column width="50%"}
@@ -229,14 +196,13 @@ source("Functions.R")
 
 ### Slightly Biased Item
 
-```{r}
-#| eval: true
-#| echo: false 
-#| code-line-numbers: false
 
-Model_plot(b = .3, title = "")
+::: {.cell}
+::: {.cell-output-display}
+![](IMPS-presentation_files/figure-revealjs/unnamed-chunk-6-1.png){width=960}
+:::
+:::
 
-```
 
 
 
@@ -244,14 +210,13 @@ Model_plot(b = .3, title = "")
 
 ### Noticeably Biased Item 
 
-```{r}
-#| eval: true
-#| echo: false 
-#| code-line-numbers: false
 
-Model_plot(b = 2, title = "")
+::: {.cell}
+::: {.cell-output-display}
+![](IMPS-presentation_files/figure-revealjs/unnamed-chunk-7-1.png){width=960}
+:::
+:::
 
-```
 
  
 :::
@@ -270,26 +235,24 @@ Model_plot(b = 2, title = "")
 ### Average Forecaster
 
 
-```{r}
-#| eval: true
-#| echo: false 
-#| code-line-numbers: false
 
-Model_plot_full(b = -1, df = 2000, sd = 1, title = "Expected Distribution for Average Forecaster")
+::: {.cell}
+::: {.cell-output-display}
+![](IMPS-presentation_files/figure-revealjs/unnamed-chunk-8-1.png){width=960}
+:::
+:::
 
-```
 
 
 ### Good Forecaster
 
-```{r}
-#| eval: true
-#| echo: false 
-#| code-line-numbers: false
 
-Model_plot_full( b = -1, df = 2000, sd = .2, title = "Expected Distribution for Good Forecaster")
+::: {.cell}
+::: {.cell-output-display}
+![](IMPS-presentation_files/figure-revealjs/unnamed-chunk-9-1.png){width=960}
+:::
+:::
 
-```
 :::
 
 :::
@@ -607,35 +570,70 @@ Negative log-likelihood function of $\theta$ given item parameters and participa
 ## Between Item Parameters Correlation
 
 
-```{r}
-#| eval: true
-#| echo: false
-#| code-line-numbers: false
 
-# correlation among item parameters (maybe highlight high correlations later)
-library(kableExtra)
+::: {.cell}
+::: {.cell-output-display}
+`````{=html}
+<table class=" lightable-classic table" style="font-family: Palatino Linotype; width: auto !important; margin-left: auto; margin-right: auto; font-size: 30px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">Between Item Parameters Correlations</caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;font-weight: bold;">   </th>
+   <th style="text-align:right;font-weight: bold;"> a </th>
+   <th style="text-align:right;font-weight: bold;"> b </th>
+   <th style="text-align:right;font-weight: bold;"> d </th>
+   <th style="text-align:right;font-weight: bold;"> df </th>
+   <th style="text-align:right;font-weight: bold;"> sigma </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> a </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> -0.17 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> -0.57 </td>
+   <td style="text-align:right;"> -0.04 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> b </td>
+   <td style="text-align:right;"> -0.17 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> -0.33 </td>
+   <td style="text-align:right;"> -0.18 </td>
+   <td style="text-align:right;"> -0.51 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> d </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> -0.33 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 0.35 </td>
+   <td style="text-align:right;"> 0.86 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> df </td>
+   <td style="text-align:right;"> -0.57 </td>
+   <td style="text-align:right;"> -0.18 </td>
+   <td style="text-align:right;"> 0.35 </td>
+   <td style="text-align:right;"> 1.00 </td>
+   <td style="text-align:right;"> 0.52 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> sigma </td>
+   <td style="text-align:right;"> -0.04 </td>
+   <td style="text-align:right;"> -0.51 </td>
+   <td style="text-align:right;"> 0.86 </td>
+   <td style="text-align:right;"> 0.52 </td>
+   <td style="text-align:right;"> 1.00 </td>
+  </tr>
+</tbody>
+</table>
 
-`%!in%` <- Negate(`%in%`) 
-
-par_tab <- mod_res %>% 
-  filter(parameter %!in% c("theta", "G_diff")) %>% 
-    select(parameter, mean, index) %>% 
-      pivot_wider(names_from = parameter, values_from = mean) %>% 
-          mutate(a = exp(a),
-                 d = exp(d),
-                 sigma = exp(sigma))
+`````
+:::
+:::
 
 
-colnames(par_tab)[5] <- "df"
-
-cor_tab <- data.frame(round(cor(par_tab[,-1], use = "complete.obs"), 2))
-
-kableExtra::kbl(cor_tab, caption = "Between Item Parameters Correlations") %>% 
-  row_spec(0, bold = T) %>% 
-  column_spec(1, bold = T) %>% 
-  kable_classic(full_width = F, html_font = "Palatino Linotype") %>% 
-  kable_styling(font_size = 30)
-
-```
 
 
