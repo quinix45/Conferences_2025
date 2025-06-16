@@ -578,16 +578,85 @@ Given the complexity of the FPT items, item parameters are likely to change depe
 
 ## Acknowledgments
 
+:::: {.columns}
+::: {.column width="30%"}
 
 
 
+![](Additional files/images/Fordham_University_seal.svg){width=50%}
+ 
+<figure>
+  <img src="Additional files/images/Leah.jpg" alt="Trulli" style="width:220px;">
+  <figcaption style="text-align:left;">Leah Feuerstahler</figcaption>
+</figure>
 
 
+:::
+::: {.column width="70%"}
 
 
-## References 
+<center> 
+![](Additional files/images/FRI-logo.png){width=50%}
+
+<div style="display:flex; font-size:26px;">
+<figure>
+  <img src="Additional files/images/Mark.jpg" alt="Trulli" style="width:220px">
+  <figcaption>Mark Himmelstein</figcaption>
+</figure>
+<figure>
+  <img src="Additional files/images/Sophie.jpg" alt="Trulli" style="width:220px">
+  <figcaption>Sophie Ma Zhu</figcaption>
+</figure>
+<figure>
+  <img src="Additional files/images/Nik.jpg" alt="Trulli" style="width:220px">
+  <figcaption>Nikolay Petrov</figcaption>
+</figure>
+<figure>
+  <img src="Additional files/images/Ezra.jpg" alt="Trulli" style="width:220px">
+  <figcaption>Ezra Karger</figcaption>
+</figure>
+</div>
+</center>
+
+:::
+::::
+
+
+## References And Contacts
 
 <div id="refs"> </div>
+
+
+
+:::: {.columns}
+::: {.column width="50%"}
+
+
+<center>
+<div style="font-size: 30px"> Contact: [fsetti@fordham.edu](mailto:fsetti@fordham.edu){target="_blank"}
+ </div>
+<figure>
+  <img src="Additional files/images/Fabio.jpg" alt="Trulli" style="width:280px">
+</figure>
+</center>
+
+:::
+::: {.column width="50%"}
+
+<center>
+<div style="font-size: 30px"> **Slides Link** </div>
+
+<figure>
+  <img src="Additional files/images/Slides_QR.png" alt="Trulli" style="width:320px">
+
+</figure>
+</center>
+
+
+:::
+::::
+
+
 
 
 # Appendix
