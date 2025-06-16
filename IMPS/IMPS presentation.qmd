@@ -1,7 +1,7 @@
 ---
 title: "Measuring Forecasting Proficiency: An Item Response Theory Approach"
-author: "Fabio Setti"
-institute: "Fordham University"
+author: "<sup>1</sup>Fabio Setti, <sup>1</sup>Leah Feuerstahler, <sup>2,6</sup>Sophie Ma Zhu, <sup>3,6</sup>Nikolay Petrov, <sup>4,6</sup>Ezra Karger, <sup>5,6</sup>Mark Himmelstein"
+institute: "<sup>1</sup>Fordham University, <sup>2</sup>University of British Columbia, <sup>3</sup>University of Cambridge, <sup>4</sup>Federal Reserve Bank of Chicago, <sup>5</sup>Georgia Institute of Technology, <sup>6</sup>Forecasting Research Institute"
 
 engine: shinylive
 
@@ -45,8 +45,10 @@ editor: source
 # ggplot defaults and tidyverse
 
 library(tidyverse)
-theme_set(theme_classic(base_size = 20, 
+theme_set(theme_classic(base_size = 16, 
                         base_family = 'serif'))
+
+mod_res <- rio::import("Additional files/summary.csv")
 ```
 
 
@@ -86,7 +88,7 @@ Quantile forecasting items are designed to elicit an individual's subjective cum
 
 ::: {.fragment fragment-index=3}
 
-- Each participant provides 5 monotonically increasing responses
+- Each individual provides 5 monotonically increasing responses
 
 - Responses are unbounded
 
@@ -119,7 +121,7 @@ $$
 ::: {.column width="55%"}
 
 
-<ul style="font-size: 24px">  
+<ul style="font-size: 26px">  
 
 <li>  $\hat{Y}_i$: Reported forecast for item $i$ at any quantile.   </li>
 
@@ -220,23 +222,27 @@ source("Functions.R")
 :::: {.columns}
 ::: {.column width="50%"}
 
-**Assumption 1:** Some items are either unbiased or bias (*irreducible uncertainty*) 
+
+**Assumption 1:** Items are always biased to some extent (*irreducible uncertainty*) 
 
 ::: {.panel-tabset}
 
-### Unbiased Item
+### Slightly Biased Item
 
 ```{r}
 #| eval: true
 #| echo: false 
 #| code-line-numbers: false
 
-Model_plot(title = "")
+Model_plot(b = .3, title = "")
 
 ```
 
 
-### Biased Item 
+
+
+
+### Noticeably Biased Item 
 
 ```{r}
 #| eval: true
@@ -253,6 +259,8 @@ Model_plot(b = 2, title = "")
 :::
 
 ::: {.column width="50%"}
+
+::: {.fragment fragment-index=1}
 
 **Assumption 2:** Good forecasters will more closely approach the expected means at the 5 quantiles 
 
@@ -274,8 +282,6 @@ Model_plot_full(b = -1, df = 2000, sd = 1, title = "Expected Distribution for Av
 
 ### Good Forecaster
 
-
-
 ```{r}
 #| eval: true
 #| echo: false 
@@ -284,6 +290,7 @@ Model_plot_full(b = -1, df = 2000, sd = 1, title = "Expected Distribution for Av
 Model_plot_full( b = -1, df = 2000, sd = .2, title = "Expected Distribution for Good Forecaster")
 
 ```
+:::
 
 :::
 
@@ -334,7 +341,7 @@ $$Y_{jiq} \sim \mathrm{Student\ T}(\mu_{iq}, \sigma_{ji}, \mathrm{df}_i) \\
 :::
 ::: {.column width="60%"}
 
-<iframe width="90%" height="550px" src="https://quinix45.github.io/shinylive_apps/t_model/"> </iframe>
+<iframe width="100%" height="550px" src="https://quinix45.github.io/shinylive_apps/t_model/"> </iframe>
 
 :::
 ::::
@@ -342,24 +349,31 @@ $$Y_{jiq} \sim \mathrm{Student\ T}(\mu_{iq}, \sigma_{ji}, \mathrm{df}_i) \\
 
 ## Data Collection
 
-Item responses were collected across 5 waves of a 7 Wave study. 
+Item forecasts were collected across 5 waves of a 7 Wave study. 
 
-</br>
+
 
 :::: {.columns}
-::: {.column width="40%"}
+::: {.column width="30%"}
 
+</br>
 
 <ul style="font-size: 26px">  
 
 <li>  **32 items** divided across 6 forms (A, B, C, D, E, X)  and **1194 participants** </li>
 
 
+::: {.fragment fragment-index=1}
+
 <li> Diverse item domains: Financial, political, technology, energy... </li>
 
+:::
+
+::: {.fragment fragment-index=2}
 
 <li> 1 week interval between waves, and 1 month from resolution at wave 7  </li>
 
+:::
 </ul>
 
 
@@ -369,58 +383,13 @@ Item responses were collected across 5 waves of a 7 Wave study.
 
 
 :::
-::: {.column width="60%"}
-
-\renewcommand{\arraystretch}{4}
-```{r}
-#| eval: true
-#| echo: false
-#| code-line-numbers: false
-
-library(kableExtra)
-
-wave_tab <- t(data.frame(c("Form E+A", "Form B+X", "Form C+X", "Form D+X", "Form E+A"),
-                         c("Form A+B", "Form C+X", "Form D+X", "Form E+X", "Form A+B"),
-                         c("Form B+C", "Form D+X", "Form E+X", "Form A+X", "Form B+C"),
-                         c("Form C+D", "Form E+X", "Form A+X", "Form B+X", "Form C+D"),
-                         c("Form D+E", "Form A+X", "Form B+X", "Form C+X", "Form D+E")))
-
-colnames(wave_tab) <- paste("wave", c(1, 2, 4, 6, 7))
-rownames(wave_tab) <- paste("order", 1:5)
+::: {.column width="70%"}
 
 
-kable(wave_tab) %>% 
-  row_spec(0, bold = T) %>% 
-  column_spec(1, bold = T) %>% 
-  kable_classic(full_width = T, html_font = "Palatino Linotype") %>% 
-  kable_styling(font_size = 22)
-  
-```
-<div style="font-size: 16px"> *note*. Table 2 from @Zhu_etal_2024. The full experimental designed is detailed in both @Zhu_etal_2024 and @Himmelstein_etal_2024.</div>
+![](Additional files/images/Design_Waves.png)
 
 
-
-:::
-::::
-
-:::: {.columns}
-
-
-::: {.column width="33%"}
-
-**Form B,C,D:** completed 1 time in either waves 2,4,6 (responses treated as *in sample*)
-
-:::
-
-::: {.column width="33%"}
-
-**Form A, E:** completed 2 times, waves 1, and 7 (responses treated as *out of sample*)
-
-:::
-
-::: {.column width="33%"}
-
-**Form X:** completed 3 times in waves 2, 4, 6. (only responses from wave 2 will be used here, *in sample*)
+<div style="font-size: 16px"> *note*. The full experimental designed is detailed in both @Zhu_etal_2024 and @Himmelstein_etal_2024.</div>
 
 :::
 ::::
@@ -431,175 +400,45 @@ kable(wave_tab) %>%
 
 All models were estimated in PyMC [@pymc2023] using Markov Chain Monte Carlo (MCMC) estimation (warmup = 1000, draws = 5000, ~ 40 minutes). All Rhats $\leq 1.01$. 
 
-:::: {.columns}
-::: {.column width="70%"}
+<center>
 
+::: {.fragment fragment-index=1}
 
-```{r}
-#| eval: true
-#| echo: false
-#| code-line-numbers: false
-# #| out-width: "80%"
-#| fig-align: left
-
-mod_res <- rio::import("Additional files/summary.csv")
-
-design <- c(
-"
- AABBCC
- #DDEE#
- "
-)
-
-
-# create plots
-
-b_plot <- mod_res %>% 
-  filter(parameter == "b") %>% 
-ggplot(aes(x = reorder(item, mean), y = mean)) +
-  geom_pointrange(aes(ymin=mean-sd, ymax=mean+sd),
-                  fatten = 1.5) +
-  coord_flip() +
-  xlab("item") +
-  ggtitle("") +
-  ylab("b") +
-  theme(axis.text=element_text(size=10))
-
-d_plot <- mod_res %>% 
-  filter(parameter == "d") %>% 
-ggplot(aes(x = reorder(item, mean), y = exp(mean))) +
-  geom_pointrange(aes(ymin=exp(mean-sd), ymax=exp(mean+sd)),
-                  fatten = 1.5) +
-  coord_flip() +
-  xlab("") +
-  ggtitle("") +
-  ylab("d") +
-  theme(axis.text=element_text(size=10))
-
-
-sigma_plot <- mod_res %>% 
-  filter(parameter == "sigma") %>% 
-ggplot(aes(x = reorder(item, mean), y = exp(mean))) +
-  geom_pointrange(aes(ymin=exp(mean-sd), ymax=exp(mean+sd)),
-                  fatten = 1.5) +
-  coord_flip() +
-  xlab("") +
-  ggtitle("") +
-  ylab("\u03C3") +
-  theme(axis.text=element_text(size=10))
-
-a_plot <- mod_res %>% 
-  filter(parameter == "a") %>% 
-ggplot(aes(x = reorder(item, mean), y = exp(mean))) +
-  geom_pointrange(aes(ymin=exp(mean-sd), ymax=exp(mean+sd)),
-                  fatten = 1.5) +
-  coord_flip() +
-  xlab("") +
-  ggtitle("") +
-  ylab("a") +
-  theme(axis.text=element_text(size=10))
-
-
-df_plot <- mod_res %>% 
-  filter(parameter == "nu") %>% 
-ggplot(aes(x = reorder(item, mean), y = mean)) +
-  geom_pointrange(aes(ymin=mean-sd, ymax=mean+sd),
-                  fatten = 1.5) +
-  coord_flip() +
-  xlab("") +
-  ggtitle("") +
-  ylab("df") +
-  theme(axis.text=element_text(size=10))
-
-
-
-gridExtra::grid.arrange(b_plot, d_plot, sigma_plot, a_plot, df_plot,
-                        nrow = 1)
-```
-
+![](Additional files/Item_Parameters.png){width=70%}
 
 :::
-::: {.column width="30%"}
 
-
-</br>
-
-
-```{r}
-#| eval: true
-#| echo: false
-#| code-line-numbers: false
-
-# correlation among item parameters (maybe highlight high correlations later)
-
-
-`%!in%` <- Negate(`%in%`) 
-
-par_tab <- mod_res %>% 
-  filter(parameter %!in% c("theta", "G_diff")) %>% 
-    select(parameter, mean, index) %>% 
-      pivot_wider(names_from = parameter, values_from = mean) %>% 
-          mutate(a = exp(a),
-                 d = exp(d),
-                 sigma = exp(sigma))
-
-
-colnames(par_tab)[5] <- "df"
-
-cor_tab <- data.frame(round(cor(par_tab[,-1], use = "complete.obs"), 2))
-  
-
-kableExtra::kbl(cor_tab, caption = "BetweenItem Parameters Correlations") %>% 
-  row_spec(0, bold = T) %>% 
-  column_spec(1, bold = T) %>% 
-  kable_classic(full_width = T, html_font = "Palatino Linotype") %>% 
-  kable_styling(font_size = 18)
-
-```
-
-
-:::
-::::
-
+</center>
 
 ## Person Parameter: $\theta$
 
-:::: {.columns}
-::: {.column width="40%"}
 
-The distribution of $\theta$ for the 1194 forecasters (better forecasters have higher $\theta$ values).
+Distribution of $\theta$ for the 1194 forecasters (better forecasters have higher $\theta$ values).
 
-
-
-```{r}
-
-mod_res %>% 
-  filter(parameter == "theta") %>% 
-    ggplot(aes(x = mean)) +
-    geom_density() +
-    xlab("\u03b8")+ 
-    ylab("") +
-    theme(axis.text=element_text(size=16),
-          plot.title = element_text(face="bold", hjust = 0.5),
-           plot.margin = margin(t = 0,  # Top margin
-                             r = 0,  # Right margin
-                             b = 0,  # Bottom margin
-                             l = 0)) +
-    ggtitle("\u03b8 Distribution of 1194 Forecasters") 
-
-```
+<center>
+![](Additional files/Theta_Figure.png){width=70%}
+</center>
 <div style="font-size: 16px; margin-top: -16px; text-align:center;"> *note*. The scale $\theta$ parameter was identified by enforcing a standard normal prior.</div>
 
 
 
+## Who gets Higher $\theta$s?
+
+Forecasters who consistently approach the expected forecasts are rewarded
+
+
+
+:::: {.columns}
+::: {.column width="80%"}
+<center>
+![](Additional files/theta_plot.png){width=75%}
+</center>
 :::
-::: {.column width="60%"}
+::: {.column width="20%"}
 
-<div style="font-size: 22px"> Forecasters who consistently approach the expected forecasts are rewarded. </div>
+</br>
 
-
-![](Additional files/theta_plot.png){width=80%}
-<div style="font-size: 14px"> *note*. In the case of the two top panels, missing person forecast were outside the $Y_{jiq} = [-9; 9]$ range.</div>
+<div style="font-size: 22px"> *note*. In the case of the two top panels, missing person forecast were outside the $Y_{jiq} = [-9; 9]$ range.</div>
 
 :::
 ::::
@@ -611,7 +450,7 @@ mod_res %>%
 <div style="font-size: 24px"> As per the study design, Waves 1 and 7 responses were treated as *outcome* and Waves 2,4, 6 were treated as *predictors*. </div>
 
 
-
+::: {.fragment fragment-index=1}
 
 :::: {.columns}
 ::: {.column width="30%"}
@@ -624,10 +463,6 @@ mod_res %>%
 
 
 
-
-
-
-
 :::
 ::: {.column width="70%"}
 
@@ -636,7 +471,7 @@ mod_res %>%
 :::
 ::::
 
-
+:::
 
 
 ## Expected Item Information
@@ -654,70 +489,91 @@ $$Y_{jiq} \sim \mathrm{Student\ T}(\mu_{iq}, \sigma_{ji}, \mathrm{df}_i) \\
 
 <ul style="font-size: 22px">
 
+
+::: {.fragment fragment-index=1}
+
 <li> Items with higher $\sigma_i$ measure more skilled forecasters better (*difficulty*) </li>
+:::
 
+::: {.fragment fragment-index=2}
 <li> Higher $a_i$ implies better measurement within a narrower interval of $\theta$ (*discrimination*) </li>
+:::
 
+::: {.fragment fragment-index=3}
 <li>  $df_i$ functions in a similar way to $\sigma_i$.  </li>
+:::
 
+::: {.fragment fragment-index=4}
 <li>  The parameters within $\mu_{iq}$ do not influence $\mathrm{E} \mathrm{I}(\theta)$ much. </li>
+:::
 
 </ul>
 
-
-<!-- <div style="font-size: 14px"> **note:** $\mathrm{E} \mathrm{I}(\theta)$ is computed by integrating over $Y_{jiq}[-10;10]$. The current integral assumes that any value of $Y_{jiq}$ within the integration range is equally likely, which is not accurate. This implementation is a general proof of concept. </div> -->
-
-
 :::
+
 ::: {.column width="60%"}
 
-
-<iframe width="90%" height="550px" src="https://quinix45.github.io/shinylive_apps/Einfo_t_model/"> </iframe>
-
+<iframe width="100%" height="450px" src="https://quinix45.github.io/shinylive_apps/Einfo_t_model/"> </iframe>
+<div style="font-size: 18px; text-align:center;"> **note:** $\mathrm{E} \mathrm{I}(\theta)$ is computed by integrating over $Y_{jiq}[-10;10]$. </div>
 
 :::
 ::::
 
-
-
-
-## Stability of Item Parameters
+## Stability of Parameters
 
 Given the complexity of the FPT items, item parameters are likely to change depending on many factors. Still, there seems to be reasonable stability even after a month between Wave 1 and Wave 7 (*test-retest*):
 
-:::: {.columns}
-::: {.column width="30%"}
 
-</br>
-
-Item parameters are fairly stable. $\theta$, on the other hand, shows moderate correlation.
-
-<ul style="font-size: 22px">  
-
-<li>  Time from resolution still has some impact on item parameters and should be accounted for in the model.   </li>
-
-<li>  It is likely that other factors beyond person/item characteristics influence response accuracy.   </li>
-
-</ul>
-
-
-:::
-::: {.column width="70%"}
-
-
+::: {.fragment fragment-index=1}
 <center>
-![](Additional files/W1_W7_parameters.png){width=80%}
-</center>
+![](Additional files/W1_W7_parameters.png){width=58%}
 <div style="font-size: 14px"> *note*. Only items from Waves 1 and 7. The $a_i$ parameter requires higher sample sizes to stably estimate, so it was fixed to 1. </div>
-
+</center>
 :::
-::::
 
 
 
 
 ## Takeaways
 
+:::: {.columns}
+::: {.column width="30%"}
+
+::: {.fragment fragment-index=1}
+- The current approach captures meaingful difference across FPT items (i.e., bias, difficulty, discrimination,...)
+:::
+
+::: {.fragment fragment-index=2}
+- The $\theta$ metric is easily undesrtood and viable for scoring individuals 
+:::
+
+::: {.fragment fragment-index=3}
+- Item information can be calculated, although the practical uses are not as straightforward as conventional testing scenarios 
+:::
+:::
+
+:::{.column width="70%"}
+:::{.r-stack}
+
+::: {.fragment fragment-index=1 .fade-in-then-out}
+![](Additional files/Item_Parameters.png)
+:::
+
+::: {.fragment fragment-index=2 .fade-in-then-out}
+<center>
+![](Additional files/Theta_Figure.png){width=50%}
+![](Additional files/OUS_acc_plot.png){width=55%}
+</center>
+:::
+
+::: {.fragment fragment-index=3}
+<iframe width="900px" height="600px" src="https://quinix45.github.io/shinylive_apps/Einfo_t_model/"></iframe>
+:::
+
+:::
+:::
+
+::::
 
 
 ## Acknowledgments
@@ -743,84 +599,43 @@ Item parameters are fairly stable. $\theta$, on the other hand, shows moderate c
 
 Negative log-likelihood function of $\theta$ given item parameters and participant response:
 
-<iframe width="90%" height="500px" src="https://quinix45.github.io/shinylive_apps/MLE_theta_model_t/"> </iframe>
+<iframe width="100%" height="500px" src="https://quinix45.github.io/shinylive_apps/MLE_theta_model_t/"> </iframe>
 
 
 
 
-## Item Parameters By Item
-
+## Between Item Parameters Correlation
 
 
 ```{r}
 #| eval: true
 #| echo: false
 #| code-line-numbers: false
-# #| out-width: "80%"
+
+# correlation among item parameters (maybe highlight high correlations later)
+library(kableExtra)
+
+`%!in%` <- Negate(`%in%`) 
+
+par_tab <- mod_res %>% 
+  filter(parameter %!in% c("theta", "G_diff")) %>% 
+    select(parameter, mean, index) %>% 
+      pivot_wider(names_from = parameter, values_from = mean) %>% 
+          mutate(a = exp(a),
+                 d = exp(d),
+                 sigma = exp(sigma))
 
 
-# create plots
+colnames(par_tab)[5] <- "df"
 
-b_plot <- mod_res %>% 
-  filter(parameter == "b") %>% 
-ggplot(aes(x = reorder(item, mean), y = mean)) +
-  geom_pointrange(aes(ymin=mean-sd, ymax=mean+sd),
-                  fatten = 1.5) +
-  coord_flip() +
-  xlab("item") +
-  ggtitle("") +
-  ylab("b") +
-  theme(axis.text=element_text(size=10))
+cor_tab <- data.frame(round(cor(par_tab[,-1], use = "complete.obs"), 2))
 
-d_plot <- mod_res %>% 
-  filter(parameter == "d") %>% 
-ggplot(aes(x = reorder(item, mean), y = exp(mean))) +
-  geom_pointrange(aes(ymin=exp(mean-sd), ymax=exp(mean+sd)),
-                  fatten = 1.5) +
-  coord_flip() +
-  xlab("") +
-  ggtitle("") +
-  ylab("d") +
-  theme(axis.text=element_text(size=10))
+kableExtra::kbl(cor_tab, caption = "Between Item Parameters Correlations") %>% 
+  row_spec(0, bold = T) %>% 
+  column_spec(1, bold = T) %>% 
+  kable_classic(full_width = F, html_font = "Palatino Linotype") %>% 
+  kable_styling(font_size = 30)
 
-
-sigma_plot <- mod_res %>% 
-  filter(parameter == "sigma") %>% 
-ggplot(aes(x = reorder(item, mean), y = exp(mean))) +
-  geom_pointrange(aes(ymin=exp(mean-sd), ymax=exp(mean+sd)),
-                  fatten = 1.5) +
-  coord_flip() +
-  xlab("") +
-  ggtitle("") +
-  ylab("\u03C3") +
-  theme(axis.text=element_text(size=10))
-
-a_plot <- mod_res %>% 
-  filter(parameter == "a") %>% 
-ggplot(aes(x = reorder(item, mean), y = exp(mean))) +
-  geom_pointrange(aes(ymin=exp(mean-sd), ymax=exp(mean+sd)),
-                  fatten = 1.5) +
-  coord_flip() +
-  xlab("") +
-  ggtitle("") +
-  ylab("a") +
-  theme(axis.text=element_text(size=10))
-
-
-df_plot <- mod_res %>% 
-  filter(parameter == "nu") %>% 
-ggplot(aes(x = reorder(item, mean), y = mean)) +
-  geom_pointrange(aes(ymin=mean-sd, ymax=mean+sd),
-                  fatten = 1.5) +
-  coord_flip() +
-  xlab("") +
-  ggtitle("") +
-  ylab("df") +
-  theme(axis.text=element_text(size=10))
-
-
-
-gridExtra::grid.arrange(b_plot, d_plot, sigma_plot, a_plot, df_plot,
-                        nrow = 1)
 ```
+
 

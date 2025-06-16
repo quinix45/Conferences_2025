@@ -9,7 +9,7 @@
 <link href="IMPS presentation_files/libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.7.31">
 
-  <meta name="author" content="Fabio Setti">
+  <meta name="author" content="1Fabio Setti, 1Leah Feuerstahler, 2,6Sophie Ma Zhu, 3,6Nikolay Petrov, 4,6Ezra Karger, 5,6Mark Himmelstein">
   <title>Measuring Forecasting Proficiency: An Item Response Theory Approach</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -160,10 +160,10 @@
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-Fabio Setti 
+<sup>1</sup>Fabio Setti, <sup>1</sup>Leah Feuerstahler, <sup>2,6</sup>Sophie Ma Zhu, <sup>3,6</sup>Nikolay Petrov, <sup>4,6</sup>Ezra Karger, <sup>5,6</sup>Mark Himmelstein 
 </div>
         <p class="quarto-title-affiliation">
-            Fordham University
+            <sup>1</sup>Fordham University, <sup>2</sup>University of British Columbia, <sup>3</sup>University of Cambridge, <sup>4</sup>Federal Reserve Bank of Chicago, <sup>5</sup>Georgia Institute of Technology, <sup>6</sup>Forecasting Research Institute
           </p>
     </div>
 </div>
@@ -189,7 +189,7 @@ Fabio Setti
 </div>
 <div class="fragment" data-fragment-index="3">
 <ul>
-<li><p>Each participant provides 5 monotonically increasing responses</p></li>
+<li><p>Each individual provides 5 monotonically increasing responses</p></li>
 <li><p>Responses are unbounded</p></li>
 <li><p><em>Forecast accuracy</em> is the measure of interest</p></li>
 </ul>
@@ -207,7 +207,7 @@ Y_i = \frac{\hat{Y}_i - Y_{\mathrm{res},i}}{SD_{Y_{\mathrm{hist},i}}}
 \]</span></p>
 <div class="columns">
 <div class="column" style="width:55%;">
-<ul style="font-size: 24px">
+<ul style="font-size: 26px">
 <li>
 <span class="math inline">\(\hat{Y}_i\)</span>: Reported forecast for item <span class="math inline">\(i\)</span> at any quantile.
 </li>
@@ -263,9 +263,9 @@ Y_i = \frac{\hat{Y}_i - Y_{\mathrm{res},i}}{SD_{Y_{\mathrm{hist},i}}}
 <h2>Assumptions About Item Behavior</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p><strong>Assumption 1:</strong> Some items are either unbiased or bias (<em>irreducible uncertainty</em>)</p>
+<p><strong>Assumption 1:</strong> Items are always biased to some extent (<em>irreducible uncertainty</em>)</p>
 <div class="panel-tabset">
-<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Unbiased Item</a></li><li><a href="#tabset-1-2">Biased Item</a></li></ul>
+<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Slightly Biased Item</a></li><li><a href="#tabset-1-2">Noticeably Biased Item</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1">
 <div class="cell">
@@ -292,6 +292,7 @@ Y_i = \frac{\hat{Y}_i - Y_{\mathrm{res},i}}{SD_{Y_{\mathrm{hist},i}}}
 </div>
 </div>
 </div><div class="column" style="width:50%;">
+<div class="fragment" data-fragment-index="1">
 <p><strong>Assumption 2:</strong> Good forecasters will more closely approach the expected means at the 5 quantiles</p>
 <div class="panel-tabset">
 <ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1">Average Forecaster</a></li><li><a href="#tabset-2-2">Good Forecaster</a></li></ul>
@@ -314,6 +315,7 @@ Y_i = \frac{\hat{Y}_i - Y_{\mathrm{res},i}}{SD_{Y_{\mathrm{hist},i}}}
 <figure>
 <p><img data-src="IMPS-presentation_files/figure-revealjs/unnamed-chunk-9-1.png" width="960"></p>
 </figure>
+</div>
 </div>
 </div>
 </div>
@@ -358,120 +360,210 @@ Y_i = \frac{\hat{Y}_i - Y_{\mathrm{res},i}}{SD_{Y_{\mathrm{hist},i}}}
 </div>
 </ul>
 </div><div class="column" style="width:60%;">
-<iframe width="90%" height="550px" src="https://quinix45.github.io/shinylive_apps/t_model/">
+<iframe width="100%" height="550px" src="https://quinix45.github.io/shinylive_apps/t_model/">
 </iframe>
 </div></div>
 </section>
 <section id="data-collection" class="slide level2">
 <h2>Data Collection</h2>
-<p>Item responses were collected across 5 waves of a 7 Wave study.</p>
-<p><br></p>
+<p>Item forecasts were collected across 5 waves of a 7 Wave study.</p>
 <div class="columns">
-<div class="column" style="width:40%;">
+<div class="column" style="width:30%;">
+<p><br></p>
 <ul style="font-size: 26px">
 <li>
 <strong>32 items</strong> divided across 6 forms (A, B, C, D, E, X) and <strong>1194 participants</strong>
 </li>
+<div class="fragment" data-fragment-index="1">
 <li>
 Diverse item domains: Financial, political, technology, energy…
 </li>
+</div>
+<div class="fragment" data-fragment-index="2">
 <li>
 1 week interval between waves, and 1 month from resolution at wave 7
 </li>
+</div>
 </ul>
 <p><br></p>
-</div><div class="column" style="width:60%;">
-<div class="cell">
-<div class="cell-output-display">
-<table class="lightable-classic table caption-top" data-quarto-postprocess="true" style="font-family: Palatino Linotype; margin-left: auto; margin-right: auto; font-size: 22px; margin-left: auto; margin-right: auto;">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th" style="text-align: left; font-weight: bold;"></th>
-<th data-quarto-table-cell-role="th" style="text-align: left; font-weight: bold;">wave 1</th>
-<th data-quarto-table-cell-role="th" style="text-align: left; font-weight: bold;">wave 2</th>
-<th data-quarto-table-cell-role="th" style="text-align: left; font-weight: bold;">wave 4</th>
-<th data-quarto-table-cell-role="th" style="text-align: left; font-weight: bold;">wave 6</th>
-<th data-quarto-table-cell-role="th" style="text-align: left; font-weight: bold;">wave 7</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left; font-weight: bold;">order 1</td>
-<td style="text-align: left;">Form E+A</td>
-<td style="text-align: left;">Form B+X</td>
-<td style="text-align: left;">Form C+X</td>
-<td style="text-align: left;">Form D+X</td>
-<td style="text-align: left;">Form E+A</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; font-weight: bold;">order 2</td>
-<td style="text-align: left;">Form A+B</td>
-<td style="text-align: left;">Form C+X</td>
-<td style="text-align: left;">Form D+X</td>
-<td style="text-align: left;">Form E+X</td>
-<td style="text-align: left;">Form A+B</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; font-weight: bold;">order 3</td>
-<td style="text-align: left;">Form B+C</td>
-<td style="text-align: left;">Form D+X</td>
-<td style="text-align: left;">Form E+X</td>
-<td style="text-align: left;">Form A+X</td>
-<td style="text-align: left;">Form B+C</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; font-weight: bold;">order 4</td>
-<td style="text-align: left;">Form C+D</td>
-<td style="text-align: left;">Form E+X</td>
-<td style="text-align: left;">Form A+X</td>
-<td style="text-align: left;">Form B+X</td>
-<td style="text-align: left;">Form C+D</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; font-weight: bold;">order 5</td>
-<td style="text-align: left;">Form D+E</td>
-<td style="text-align: left;">Form A+X</td>
-<td style="text-align: left;">Form B+X</td>
-<td style="text-align: left;">Form C+X</td>
-<td style="text-align: left;">Form D+E</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+</div><div class="column" style="width:70%;">
+<p><img data-src="Additional%20files/images/Design_Waves.png"></p>
 <div style="font-size: 16px">
-<em>note</em>. Table 2 from <span class="citation" data-cites="Zhu_etal_2024">Zhu et al. (<a href="#/references" role="doc-biblioref" onclick="">2024</a>)</span>. The full experimental designed is detailed in both <span class="citation" data-cites="Zhu_etal_2024">Zhu et al. (<a href="#/references" role="doc-biblioref" onclick="">2024</a>)</span> and <span class="citation" data-cites="Himmelstein_etal_2024">Himmelstein et al. (<a href="#/references" role="doc-biblioref" onclick="">2024</a>)</span>.
+<em>note</em>. The full experimental designed is detailed in both <span class="citation" data-cites="Zhu_etal_2024">Zhu et al. (<a href="#/references" role="doc-biblioref" onclick="">2024</a>)</span> and <span class="citation" data-cites="Himmelstein_etal_2024">Himmelstein et al. (<a href="#/references" role="doc-biblioref" onclick="">2024</a>)</span>.
 </div>
-</div></div>
-<div class="columns">
-<div class="column" style="width:33%;">
-<p><strong>Form B,C,D:</strong> completed 1 time in either waves 2,4,6 (responses treated as <em>in sample</em>)</p>
-</div><div class="column" style="width:33%;">
-<p><strong>Form A, E:</strong> completed 2 times, waves 1, and 7 (responses treated as <em>out of sample</em>)</p>
-</div><div class="column" style="width:33%;">
-<p><strong>Form X:</strong> completed 3 times in waves 2, 4, 6. (only responses from wave 2 will be used here, <em>in sample</em>)</p>
 </div></div>
 </section>
 <section id="model-estimation-and-item-parameters" class="slide level2">
 <h2>Model Estimation and Item Parameters</h2>
 <p>All models were estimated in PyMC <span class="citation" data-cites="pymc2023">(<a href="#/references" role="doc-biblioref" onclick="">Abril-Pla et al., 2023</a>)</span> using Markov Chain Monte Carlo (MCMC) estimation (warmup = 1000, draws = 5000, ~ 40 minutes). All Rhats <span class="math inline">\(\leq 1.01\)</span>.</p>
+<center>
+<div class="fragment" data-fragment-index="1">
+<p><img data-src="Additional%20files/Item_Parameters.png" style="width:70.0%"></p>
+</div>
+</center>
+</section>
+<section id="person-parameter-theta" class="slide level2">
+<h2>Person Parameter: <span class="math inline">\(\theta\)</span></h2>
+<p>Distribution of <span class="math inline">\(\theta\)</span> for the 1194 forecasters (better forecasters have higher <span class="math inline">\(\theta\)</span> values).</p>
+<center>
+<img data-src="Additional%20files/Theta_Figure.png" style="width:70.0%">
+</center>
+<div style="font-size: 16px; margin-top: -16px; text-align:center;">
+<em>note</em>. The scale <span class="math inline">\(\theta\)</span> parameter was identified by enforcing a standard normal prior.
+</div>
+</section>
+<section id="who-gets-higher-thetas" class="slide level2">
+<h2>Who gets Higher <span class="math inline">\(\theta\)</span>s?</h2>
+<p>Forecasters who consistently approach the expected forecasts are rewarded</p>
 <div class="columns">
-<div class="column" style="width:70%;">
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="IMPS-presentation_files/figure-revealjs/unnamed-chunk-11-1.png" width="960"></p>
-</figure>
-</div>
-</div>
-</div>
-</div><div class="column" style="width:30%;">
+<div class="column" style="width:80%;">
+<center>
+<img data-src="Additional%20files/theta_plot.png" style="width:75.0%">
+</center>
+</div><div class="column" style="width:20%;">
 <p><br></p>
+<div style="font-size: 22px">
+<em>note</em>. In the case of the two top panels, missing person forecast were outside the <span class="math inline">\(Y_{jiq} = [-9; 9]\)</span> range.
+</div>
+</div></div>
+</section>
+<section id="predicting-out-of-sample-accuracy" class="slide level2">
+<h2>Predicting Out of Sample Accuracy</h2>
+<div style="font-size: 24px">
+As per the study design, Waves 1 and 7 responses were treated as <em>outcome</em> and Waves 2,4, 6 were treated as <em>predictors</em>.
+</div>
+<div class="fragment" data-fragment-index="1">
+<div class="columns">
+<div class="column" style="width:30%;">
+<p><br> <br></p>
+<div style="font-size: 26px; padding-top: 14px;">
+<strong>S-scores (SS):</strong> A proper scoring rule that is normally used to score quantile forecasts (smaller SS, better forecast)
+</div>
+</div><div class="column" style="width:70%;">
+<p><img data-src="Additional%20files/OUS_acc_plot.png" style="width:95.0%"></p>
+</div></div>
+</div>
+</section>
+<section id="expected-item-information" class="slide level2">
+<h2>Expected Item Information</h2>
+<p>One advantage of the <span class="math inline">\(\theta\)</span> metric is that it allows for the calculation of <em>expected item information</em>, <span class="math inline">\(\mathrm{EI}(\theta)\)</span> :</p>
+<div class="columns">
+<div class="column" style="width:40%;">
+<p><span class="math display">\[Y_{jiq} \sim \mathrm{Student\ T}(\mu_{iq}, \sigma_{ji}, \mathrm{df}_i) \\
+\mu_{iq} = b_i + Q_q \times d_i \\
+\sigma_{ji} = \frac{\sigma_i}{\mathrm{Exp}[a_i \times \theta_j]}\]</span></p>
+<ul style="font-size: 22px">
+<div class="fragment" data-fragment-index="1">
+<li>
+Items with higher <span class="math inline">\(\sigma_i\)</span> measure more skilled forecasters better (<em>difficulty</em>)
+</li>
+</div>
+<div class="fragment" data-fragment-index="2">
+<li>
+Higher <span class="math inline">\(a_i\)</span> implies better measurement within a narrower interval of <span class="math inline">\(\theta\)</span> (<em>discrimination</em>)
+</li>
+</div>
+<div class="fragment" data-fragment-index="3">
+<li>
+<span class="math inline">\(df_i\)</span> functions in a similar way to <span class="math inline">\(\sigma_i\)</span>.
+</li>
+</div>
+<div class="fragment" data-fragment-index="4">
+<li>
+The parameters within <span class="math inline">\(\mu_{iq}\)</span> do not influence <span class="math inline">\(\mathrm{E} \mathrm{I}(\theta)\)</span> much.
+</li>
+</div>
+</ul>
+</div><div class="column" style="width:60%;">
+<iframe width="100%" height="450px" src="https://quinix45.github.io/shinylive_apps/Einfo_t_model/">
+</iframe>
+<div style="font-size: 18px; text-align:center;">
+<strong>note:</strong> <span class="math inline">\(\mathrm{E} \mathrm{I}(\theta)\)</span> is computed by integrating over <span class="math inline">\(Y_{jiq}[-10;10]\)</span>.
+</div>
+</div></div>
+</section>
+<section id="stability-of-parameters" class="slide level2">
+<h2>Stability of Parameters</h2>
+<p>Given the complexity of the FPT items, item parameters are likely to change depending on many factors. Still, there seems to be reasonable stability even after a month between Wave 1 and Wave 7 (<em>test-retest</em>):</p>
+<div class="fragment" data-fragment-index="1">
+<center>
+<img data-src="Additional%20files/W1_W7_parameters.png" style="width:58.0%">
+<div style="font-size: 14px">
+<em>note</em>. Only items from Waves 1 and 7. The <span class="math inline">\(a_i\)</span> parameter requires higher sample sizes to stably estimate, so it was fixed to 1.
+</div>
+</center>
+</div>
+</section>
+<section id="takeaways" class="slide level2">
+<h2>Takeaways</h2>
+<div class="columns">
+<div class="column" style="width:30%;">
+<div class="fragment" data-fragment-index="1">
+<ul>
+<li>The current approach captures meaingful difference across FPT items (i.e., bias, difficulty, discrimination,…)</li>
+</ul>
+</div>
+<div class="fragment" data-fragment-index="2">
+<ul>
+<li>The <span class="math inline">\(\theta\)</span> metric is easily undesrtood and viable for scoring individuals</li>
+</ul>
+</div>
+<div class="fragment" data-fragment-index="3">
+<ul>
+<li>Item information can be calculated, although the practical uses are not as straightforward as conventional testing scenarios</li>
+</ul>
+</div>
+</div><div class="column" style="width:70%;">
+<div class="r-stack">
+<div class="fragment fade-in-then-out" data-fragment-index="1">
+<p><img data-src="Additional%20files/Item_Parameters.png"></p>
+</div>
+<div class="fragment fade-in-then-out" data-fragment-index="2">
+<center>
+<img data-src="Additional%20files/Theta_Figure.png" style="width:50.0%"> <img data-src="Additional%20files/OUS_acc_plot.png" style="width:55.0%">
+</center>
+</div>
+<div class="fragment" data-fragment-index="3">
+<iframe width="900px" height="600px" src="https://quinix45.github.io/shinylive_apps/Einfo_t_model/">
+</iframe>
+</div>
+</div>
+</div></div>
+</section>
+<section id="acknowledgments" class="slide level2">
+<h2>Acknowledgments</h2>
+</section>
+<section id="references" class="slide level2 smaller scrollable">
+<h2>References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
+<div id="ref-pymc2023" class="csl-entry" role="listitem">
+Abril-Pla, O., Andreani, V., Carroll, C., Dong, L., Fonnesbeck, C. J., Kochurov, M., Kumar, R., Lao, J., Luhmann, C. C., Martin, O. A., Osthege, M., Vieira, R., Wiecki, T., &amp; Zinkov, R. (2023). <span>PyMC</span>: A modern, and comprehensive probabilistic programming framework in <span>Python</span>. <em>PeerJ Computer Science</em>, <em>9</em>, e1516. <a href="https://doi.org/10.7717/peerj-cs.1516">https://doi.org/10.7717/peerj-cs.1516</a>
+</div>
+<div id="ref-Himmelstein_etal_2024" class="csl-entry" role="listitem">
+Himmelstein, M., Zhu, S. M., Petrov, N., Karger, E., Helmer, J., Livnat, S., Bennett, A., Hedley, P., &amp; Tetlock, P. (2024, November 18). <em>The <span>Forecasting Proficiency Test</span>: <span>A General Use Assessment</span> of <span>Forecasting Ability</span></em>. <a href="https://doi.org/10.31234/osf.io/a7kdx">https://doi.org/10.31234/osf.io/a7kdx</a>
+</div>
+<div id="ref-Zhu_etal_2024" class="csl-entry" role="listitem">
+Zhu, S. M., Budescu, D., Petrov, N., Karger, E., &amp; Himmelstein, M. (2024, November 19). <em>The <span>Psychometric Properties</span> of <span>Probability</span> and <span>Quantile Forecasts</span></em>. <a href="https://doi.org/10.31234/osf.io/2m4ya">https://doi.org/10.31234/osf.io/2m4ya</a>
+</div>
+</div>
+</section>
+<section>
+<section id="appendix" class="title-slide slide level1 center">
+<h1>Appendix</h1>
+
+</section>
+<section id="negative-log-likelihood-of-theta" class="slide level2">
+<h2>Negative Log-Likelihood of <span class="math inline">\(\theta\)</span></h2>
+<p>Negative log-likelihood function of <span class="math inline">\(\theta\)</span> given item parameters and participant response:</p>
+<iframe width="100%" height="500px" src="https://quinix45.github.io/shinylive_apps/MLE_theta_model_t/">
+</iframe>
+</section>
+<section id="between-item-parameters-correlation" class="slide level2">
+<h2>Between Item Parameters Correlation</h2>
 <div class="cell">
 <div class="cell-output-display">
-<table class="lightable-classic table caption-top" data-quarto-postprocess="true" style="font-family: Palatino Linotype; margin-left: auto; margin-right: auto; font-size: 18px; margin-left: auto; margin-right: auto;">
-<caption>BetweenItem Parameters Correlations</caption>
+<table class="lightable-classic table caption-top" data-quarto-postprocess="true" style="font-family: Palatino Linotype; width: auto !important; margin-left: auto; margin-right: auto; font-size: 30px; margin-left: auto; margin-right: auto;">
+<caption>Between Item Parameters Correlations</caption>
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th" style="text-align: left; font-weight: bold;"></th>
@@ -525,144 +617,6 @@ Diverse item domains: Financial, political, technology, energy…
 </tr>
 </tbody>
 </table>
-</div>
-</div>
-</div></div>
-</section>
-<section id="person-parameter-theta" class="slide level2">
-<h2>Person Parameter: <span class="math inline">\(\theta\)</span></h2>
-<div class="columns">
-<div class="column" style="width:40%;">
-<p>The distribution of <span class="math inline">\(\theta\)</span> for the 1194 forecasters (better forecasters have higher <span class="math inline">\(\theta\)</span> values).</p>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="IMPS-presentation_files/figure-revealjs/unnamed-chunk-13-1.png" width="960"></p>
-</figure>
-</div>
-</div>
-</div>
-<div style="font-size: 16px; margin-top: -16px; text-align:center;">
-<em>note</em>. The scale <span class="math inline">\(\theta\)</span> parameter was identified by enforcing a standard normal prior.
-</div>
-</div><div class="column" style="width:60%;">
-<div style="font-size: 22px">
-Forecasters who consistently approach the expected forecasts are rewarded.
-</div>
-<img data-src="Additional%20files/theta_plot.png" style="width:80.0%">
-<div style="font-size: 14px">
-<em>note</em>. In the case of the two top panels, missing person forecast were outside the <span class="math inline">\(Y_{jiq} = [-9; 9]\)</span> range.
-</div>
-</div></div>
-</section>
-<section id="predicting-out-of-sample-accuracy" class="slide level2">
-<h2>Predicting Out of Sample Accuracy</h2>
-<div style="font-size: 24px">
-As per the study design, Waves 1 and 7 responses were treated as <em>outcome</em> and Waves 2,4, 6 were treated as <em>predictors</em>.
-</div>
-<div class="columns">
-<div class="column" style="width:30%;">
-<p><br> <br></p>
-<div style="font-size: 26px; padding-top: 14px;">
-<strong>S-scores (SS):</strong> A proper scoring rule that is normally used to score quantile forecasts (smaller SS, better forecast)
-</div>
-</div><div class="column" style="width:70%;">
-<p><img data-src="Additional%20files/OUS_acc_plot.png" style="width:95.0%"></p>
-</div></div>
-</section>
-<section id="expected-item-information" class="slide level2">
-<h2>Expected Item Information</h2>
-<p>One advantage of the <span class="math inline">\(\theta\)</span> metric is that it allows for the calculation of <em>expected item information</em>, <span class="math inline">\(\mathrm{EI}(\theta)\)</span> :</p>
-<div class="columns">
-<div class="column" style="width:40%;">
-<p><span class="math display">\[Y_{jiq} \sim \mathrm{Student\ T}(\mu_{iq}, \sigma_{ji}, \mathrm{df}_i) \\
-\mu_{iq} = b_i + Q_q \times d_i \\
-\sigma_{ji} = \frac{\sigma_i}{\mathrm{Exp}[a_i \times \theta_j]}\]</span></p>
-<ul style="font-size: 22px">
-<li>
-Items with higher <span class="math inline">\(\sigma_i\)</span> measure more skilled forecasters better (<em>difficulty</em>)
-</li>
-<li>
-Higher <span class="math inline">\(a_i\)</span> implies better measurement within a narrower interval of <span class="math inline">\(\theta\)</span> (<em>discrimination</em>)
-</li>
-<li>
-<span class="math inline">\(df_i\)</span> functions in a similar way to <span class="math inline">\(\sigma_i\)</span>.
-</li>
-<li>
-The parameters within <span class="math inline">\(\mu_{iq}\)</span> do not influence <span class="math inline">\(\mathrm{E} \mathrm{I}(\theta)\)</span> much.
-</li>
-</ul>
-<!-- <div style="font-size: 14px"> **note:** $\mathrm{E} \mathrm{I}(\theta)$ is computed by integrating over $Y_{jiq}[-10;10]$. The current integral assumes that any value of $Y_{jiq}$ within the integration range is equally likely, which is not accurate. This implementation is a general proof of concept. </div> -->
-</div><div class="column" style="width:60%;">
-<iframe width="90%" height="550px" src="https://quinix45.github.io/shinylive_apps/Einfo_t_model/">
-</iframe>
-</div></div>
-</section>
-<section id="stability-of-item-parameters" class="slide level2">
-<h2>Stability of Item Parameters</h2>
-<p>Given the complexity of the FPT items, item parameters are likely to change depending on many factors. Still, there seems to be reasonable stability even after a month between Wave 1 and Wave 7 (<em>test-retest</em>):</p>
-<div class="columns">
-<div class="column" style="width:30%;">
-<p><br></p>
-<p>Item parameters are fairly stable. <span class="math inline">\(\theta\)</span>, on the other hand, shows moderate correlation.</p>
-<ul style="font-size: 22px">
-<li>
-Time from resolution still has some impact on item parameters and should be accounted for in the model.
-</li>
-<li>
-It is likely that other factors beyond person/item characteristics influence response accuracy.
-</li>
-</ul>
-</div><div class="column" style="width:70%;">
-<center>
-<img data-src="Additional%20files/W1_W7_parameters.png" style="width:80.0%">
-</center>
-<div style="font-size: 14px">
-<em>note</em>. Only items from Waves 1 and 7. The <span class="math inline">\(a_i\)</span> parameter requires higher sample sizes to stably estimate, so it was fixed to 1.
-</div>
-</div></div>
-</section>
-<section id="takeaways" class="slide level2">
-<h2>Takeaways</h2>
-</section>
-<section id="acknowledgments" class="slide level2">
-<h2>Acknowledgments</h2>
-</section>
-<section id="references" class="slide level2 smaller scrollable">
-<h2>References</h2>
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
-<div id="ref-pymc2023" class="csl-entry" role="listitem">
-Abril-Pla, O., Andreani, V., Carroll, C., Dong, L., Fonnesbeck, C. J., Kochurov, M., Kumar, R., Lao, J., Luhmann, C. C., Martin, O. A., Osthege, M., Vieira, R., Wiecki, T., &amp; Zinkov, R. (2023). <span>PyMC</span>: A modern, and comprehensive probabilistic programming framework in <span>Python</span>. <em>PeerJ Computer Science</em>, <em>9</em>, e1516. <a href="https://doi.org/10.7717/peerj-cs.1516">https://doi.org/10.7717/peerj-cs.1516</a>
-</div>
-<div id="ref-Himmelstein_etal_2024" class="csl-entry" role="listitem">
-Himmelstein, M., Zhu, S. M., Petrov, N., Karger, E., Helmer, J., Livnat, S., Bennett, A., Hedley, P., &amp; Tetlock, P. (2024, November 18). <em>The <span>Forecasting Proficiency Test</span>: <span>A General Use Assessment</span> of <span>Forecasting Ability</span></em>. <a href="https://doi.org/10.31234/osf.io/a7kdx">https://doi.org/10.31234/osf.io/a7kdx</a>
-</div>
-<div id="ref-Zhu_etal_2024" class="csl-entry" role="listitem">
-Zhu, S. M., Budescu, D., Petrov, N., Karger, E., &amp; Himmelstein, M. (2024, November 19). <em>The <span>Psychometric Properties</span> of <span>Probability</span> and <span>Quantile Forecasts</span></em>. <a href="https://doi.org/10.31234/osf.io/2m4ya">https://doi.org/10.31234/osf.io/2m4ya</a>
-</div>
-</div>
-</section>
-<section>
-<section id="appendix" class="title-slide slide level1 center">
-<h1>Appendix</h1>
-
-</section>
-<section id="negative-log-likelihood-of-theta" class="slide level2">
-<h2>Negative Log-Likelihood of <span class="math inline">\(\theta\)</span></h2>
-<p>Negative log-likelihood function of <span class="math inline">\(\theta\)</span> given item parameters and participant response:</p>
-<iframe width="90%" height="500px" src="https://quinix45.github.io/shinylive_apps/MLE_theta_model_t/">
-</iframe>
-</section>
-<section id="item-parameters-by-item" class="slide level2">
-<h2>Item Parameters By Item</h2>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="IMPS-presentation_files/figure-revealjs/unnamed-chunk-14-1.png" width="960"></p>
-</figure>
-</div>
 </div>
 </div>
 
