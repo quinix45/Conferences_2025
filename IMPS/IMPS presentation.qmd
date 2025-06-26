@@ -53,7 +53,7 @@ mod_res <- rio::import("Additional files/summary.csv")
 
 
 
-The Forecasting Proficiency Test [FPT\; @Himmelstein_etal_2024] is a test developed to measure forecasting proficiency. The FTP uses *quantile forecast* items:
+The Forecasting Proficiency Test [FPT\; @Himmelstein_etal_2024] is a test developed to measure forecasting proficiency. The FPT uses *quantile forecast* items:
 
 
 
@@ -108,7 +108,7 @@ Quantile forecasting items are designed to elicit an individual's subjective cum
 
 
 
-Responses to FTP quantile forecast items are on very different scale (e.g. dollars/gallon, thousands of dollars, percentages,...). We define the outcome measure, *historically scaled accuracy*, as
+Responses to FPT quantile forecast items are on very different scale (e.g. dollars/gallon, thousands of dollars, percentages,...). We define the outcome measure, *historically scaled accuracy*, as
 
 
 
