@@ -213,7 +213,7 @@ ggplot() +
 :::
 ::::
 
-## Assumptions About Item Behavior
+## Assumptions About Item Behavior {visibility="hidden"}
 
 ```{r}
 source("Functions.R")
@@ -223,7 +223,7 @@ source("Functions.R")
 ::: {.column width="50%"}
 
 
-**Assumption 1:** Items are always biased to some extent (*irreducible uncertainty*) 
+**Assumption 1:** On average, items are always biased to some extent (*irreducible uncertainty*) 
 
 ::: {.panel-tabset}
 
@@ -316,7 +316,7 @@ $$Y_{jiq} \sim \mathrm{Student\ T}(\mu_{iq}, \sigma_{ji}, \mathrm{df}_i) \\
 <ul style="font-size: 22px">  
 
 ::: {.fragment fragment-index=1}
-<li>  $b_i$: item bias  </li>
+<li>  $b_i$: item bias (*irreducible uncertainty*) </li>
 :::
 
 ::: {.fragment fragment-index=2}
@@ -332,7 +332,7 @@ $$Y_{jiq} \sim \mathrm{Student\ T}(\mu_{iq}, \sigma_{ji}, \mathrm{df}_i) \\
 :::
 
 ::: {.fragment fragment-index=5}
-<li>  $a_i$: item discrimination (i.e. the effect of $\theta_j$ on $\sigma_i$)  </li>
+<li>  $a_i$: item discrimination (i.e. the magnitude of the effect of $\theta_j$ on $\sigma_i$)  </li>
 :::
 
 </ul>
@@ -422,7 +422,7 @@ Distribution of $\theta$ for the 1194 forecasters (better forecasters have highe
 
 
 
-## Who gets Higher $\theta$s?
+## Who gets Higher $\theta s$?
 
 Forecasters who consistently approach the expected forecasts are rewarded
 
@@ -492,11 +492,11 @@ $$Y_{jiq} \sim \mathrm{Student\ T}(\mu_{iq}, \sigma_{ji}, \mathrm{df}_i) \\
 
 ::: {.fragment fragment-index=1}
 
-<li> Items with higher $\sigma_i$ measure more skilled forecasters better (*difficulty*) </li>
+<li> Items with higher $\sigma_i$ measure more skilled forecasters better. </li>
 :::
 
 ::: {.fragment fragment-index=2}
-<li> Higher $a_i$ implies better measurement within a narrower interval of $\theta$ (*discrimination*) </li>
+<li> Higher $a_i$ implies better measurement within a narrower interval of $\theta$.  </li>
 :::
 
 ::: {.fragment fragment-index=3}
@@ -655,6 +655,7 @@ Given the complexity of the FPT items, item parameters are likely to change depe
 
 :::
 ::::
+[](){target="_blank"}
 
 
 

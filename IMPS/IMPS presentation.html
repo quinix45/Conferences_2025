@@ -259,71 +259,7 @@ Y_i = \frac{\hat{Y}_i - Y_{\mathrm{res},i}}{SD_{Y_{\mathrm{hist},i}}}
 </div>
 </div></div>
 </section>
-<section id="assumptions-about-item-behavior" class="slide level2">
-<h2>Assumptions About Item Behavior</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p><strong>Assumption 1:</strong> Items are always biased to some extent (<em>irreducible uncertainty</em>)</p>
-<div class="panel-tabset">
-<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Slightly Biased Item</a></li><li><a href="#tabset-1-2">Noticeably Biased Item</a></li></ul>
-<div class="tab-content">
-<div id="tabset-1-1">
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="IMPS-presentation_files/figure-revealjs/unnamed-chunk-6-1.png" width="960"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-<div id="tabset-1-2">
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="IMPS-presentation_files/figure-revealjs/unnamed-chunk-7-1.png" width="960"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div><div class="column" style="width:50%;">
-<div class="fragment" data-fragment-index="1">
-<p><strong>Assumption 2:</strong> Good forecasters will more closely approach the expected means at the 5 quantiles</p>
-<div class="panel-tabset">
-<ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1">Average Forecaster</a></li><li><a href="#tabset-2-2">Good Forecaster</a></li></ul>
-<div class="tab-content">
-<div id="tabset-2-1">
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="IMPS-presentation_files/figure-revealjs/unnamed-chunk-8-1.png" width="960"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-<div id="tabset-2-2">
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="IMPS-presentation_files/figure-revealjs/unnamed-chunk-9-1.png" width="960"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div></div>
-</section>
+
 <section id="the-proposed-model" class="slide level2">
 <h2>The Proposed Model</h2>
 <p>We model <span class="math inline">\(Y_{jiq}\)</span>, the accuracy of person <span class="math inline">\(j\)</span> to item <span class="math inline">\(i\)</span> at quantile <span class="math inline">\(q\)</span>.</p>
@@ -335,7 +271,7 @@ Y_i = \frac{\hat{Y}_i - Y_{\mathrm{res},i}}{SD_{Y_{\mathrm{hist},i}}}
 <ul style="font-size: 22px">
 <div class="fragment" data-fragment-index="1">
 <li>
-<span class="math inline">\(b_i\)</span>: item bias
+<span class="math inline">\(b_i\)</span>: item bias (<em>irreducible uncertainty</em>)
 </li>
 </div>
 <div class="fragment" data-fragment-index="2">
@@ -355,7 +291,7 @@ Y_i = \frac{\hat{Y}_i - Y_{\mathrm{res},i}}{SD_{Y_{\mathrm{hist},i}}}
 </div>
 <div class="fragment" data-fragment-index="5">
 <li>
-<span class="math inline">\(a_i\)</span>: item discrimination (i.e.&nbsp;the effect of <span class="math inline">\(\theta_j\)</span> on <span class="math inline">\(\sigma_i\)</span>)
+<span class="math inline">\(a_i\)</span>: item discrimination (i.e.&nbsp;the magnitude of the effect of <span class="math inline">\(\theta_j\)</span> on <span class="math inline">\(\sigma_i\)</span>)
 </li>
 </div>
 </ul>
@@ -412,8 +348,8 @@ Diverse item domains: Financial, political, technology, energy…
 <em>note</em>. The scale <span class="math inline">\(\theta\)</span> parameter was identified by enforcing a standard normal prior.
 </div>
 </section>
-<section id="who-gets-higher-thetas" class="slide level2">
-<h2>Who gets Higher <span class="math inline">\(\theta\)</span>s?</h2>
+<section id="who-gets-higher-theta-s" class="slide level2">
+<h2>Who gets Higher <span class="math inline">\(\theta s\)</span>?</h2>
 <p>Forecasters who consistently approach the expected forecasts are rewarded</p>
 <div class="columns">
 <div class="column" style="width:80%;">
@@ -455,12 +391,12 @@ As per the study design, Waves 1 and 7 responses were treated as <em>outcome</em
 <ul style="font-size: 22px">
 <div class="fragment" data-fragment-index="1">
 <li>
-Items with higher <span class="math inline">\(\sigma_i\)</span> measure more skilled forecasters better (<em>difficulty</em>)
+Items with higher <span class="math inline">\(\sigma_i\)</span> measure more skilled forecasters better.
 </li>
 </div>
 <div class="fragment" data-fragment-index="2">
 <li>
-Higher <span class="math inline">\(a_i\)</span> implies better measurement within a narrower interval of <span class="math inline">\(\theta\)</span> (<em>discrimination</em>)
+Higher <span class="math inline">\(a_i\)</span> implies better measurement within a narrower interval of <span class="math inline">\(\theta\)</span>.
 </li>
 </div>
 <div class="fragment" data-fragment-index="3">
@@ -606,6 +542,7 @@ Contact: <a href="mailto:fsetti@fordham.edu" target="_blank">fsetti@fordham.edu<
 </figure>
 </center>
 </div></div>
+<p><a href="" target="_blank"></a></p>
 </section>
 <section>
 <section id="appendix" class="title-slide slide level1 center">
