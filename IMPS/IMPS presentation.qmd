@@ -81,7 +81,7 @@ The Forecasting Proficiency Test [FPT\; @Himmelstein_etal_2024] is a test develo
 
 ::: {.fragment fragment-index=2}
 
-Quantile forecasting items are designed to elicit an individual's subjective cumulative distribution function (CDF) regarding a future continuous outcome
+Quantile forecast items are designed to elicit an individual's subjective cumulative distribution function (CDF) regarding a future continuous outcome
 
 :::
 
