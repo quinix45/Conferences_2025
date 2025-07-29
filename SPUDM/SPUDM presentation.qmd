@@ -3,8 +3,6 @@ title: "Measuring Forecasting Proficiency: An Item Response Theory Approach"
 author: "<sup>1</sup>Fabio Setti, <sup>1</sup>Leah Feuerstahler, <sup>2,6</sup>Sophie Ma Zhu, <sup>3,6</sup>Nikolay Petrov, <sup>4,6</sup>Ezra Karger, <sup>5,6</sup>Mark Himmelstein"
 institute: "<sup>1</sup>Fordham University, <sup>2</sup>University of British Columbia, <sup>3</sup>University of Cambridge, <sup>4</sup>Federal Reserve Bank of Chicago, <sup>5</sup>Georgia Institute of Technology, <sup>6</sup>Forecasting Research Institute"
 
-engine: shinylive
-
 bibliography: Additional files/R packages.bib
 csl: Additional files/apa.csl
 
@@ -14,7 +12,7 @@ title-slide-attributes:
 
 format:
   revealjs:
-    footer: "IMPS 2025"
+    footer: "SPUDM 2025"
     width: 1280
     height: 720
     chalkboard: true
@@ -24,20 +22,11 @@ format:
     controls: false
     embed-resources: false
     auto-stretch: false
-    resource-path: 
-      - shinylive-sw.js
     header-includes:
       - <script src="Fabio_theme/Fabio_theme.js"></script>
-      - <script src="shinylive-sw.js"></script>
 
-filters:
-  - shinylive
 editor: source
 ---
-
-
-## Quantile Forecasts
-
 
 ```{r}
 #| warning: false
@@ -53,60 +42,94 @@ mod_res <- rio::import("Additional files/summary.csv")
 
 
 
-The Forecasting Proficiency Test [FPT\; @Himmelstein_etal_2024] is a test developed to measure forecasting proficiency. The FPT uses *quantile forecast* items:
+
+##
 
 
+<div style="position: absolute; top:25%; left:0%; width:"1300px">
+  <img src="Additional files/images/diagram_1.png">
+</div>
 
+## 
+
+
+<div style="position: absolute; top:25%; left:0%; width:"1400px">
+  <img src="Additional files/images/diagram_2.png">
+</div>
+
+## 
+
+<div style="position: absolute; top:15%; left:0%; width:"1400px">
+  <img src="Additional files/images/diagram_3.png">
+</div>
+
+
+## Psychometrics
 
 :::: {.columns}
+::: {.column width="60%"}
+
+</br>
+<center> <div style="font-size: 32px"> The interest of *psychometrics* is uncovering the probabilistic process that <u>**causes**</u> item responses. </div> </center>
+
+</br>
+
+in general, psychometric models are statistical models that predict item responses. All psychometrics models include:
+
+- Parameters defining **item properties**
+- Parameters defining **person properties**
+- Allow for some **randomness** in item responses (random measurement error)
+
+</br>
+
+
+<center>
+**Item response theory** (IRT) models include all of these components.
+</center>
+
+:::
+::: {.column width="40%"}
+
+![](Additional files/images/Figure_1.png){width="60%"}
+
+:::
+::::
+
+## A Classical IRT Model
+
+
+According to this IRT model, the *probability* of a correct response to a binary item ($Y = 1$) for person $j$ to item $i$: 
+
+:::: {.columns}
+::: {.column width="60%"}
+
+<iframe class="stretch" width="100%" height="470px" src="https://quinix45.github.io/shinylive_apps/2PL_interactive/"> </iframe>
+
+:::
 
 ::: {.column width="40%"}
 
-::: {.fragment fragment-index=1}
+$$P(Y = 1|a_i,b_i,\theta_j) = \mathrm{logit}(a_i(\theta_j - b_i))$$
 
-<center> **FPT sample item:** </center>
-:::
+- $\theta_j$ is an unobserved person trait that explains why responses from the same individuals are similar to each other (i.e., **ability**)
 
-::: {.r-stack}
-
-![](Additional files/images/Sample_questions.png){.fragment fragment-index=1}
-
-![](Additional files/images/Sample_questions_answers.PNG){.fragment fragment-index=2}
-:::
+- $a_i$ and $b_i$ are characteristics that vary across items (e.g., items can be more or less difficult)
 
 :::
-
-::: {.column width="60%"}
-
-
-::: {.fragment fragment-index=2}
-
-Quantile forecast items are designed to elicit an individual's subjective cumulative distribution function (CDF) regarding a future continuous outcome
-
-:::
-
-
-::: {.fragment fragment-index=3}
-
-- Each individual provides 5 monotonically increasing responses
-
-- Responses are unbounded
-
-- *Forecast accuracy* is the measure of interest 
-:::
-
-::: {.fragment fragment-index=4}
-**GOAL:** in IRT fashion, modeling forecast accuracy by positing a statistical model that accounts for both *person* and *item* features
-:::
-
-:::
-
 ::::
+
+## Why Psychometrics and IRT?
+
+
+Not only we explain the observed responses, but we also obtain **item characteristics** and **person characteristics** in the process. 
+
+**Question:** Can we do the same for quantile items in the Forecasting Proficiency Test [FPT\; @Himmelstein_etal_2024]?
+
+
+
 
 
 ## Defining Forecast Accuracy
-
-
 
 Responses to FPT quantile forecast items are on very different scale (e.g. dollars/gallon, thousands of dollars, percentages,...). We define the outcome measure, *historically scaled accuracy*, as
 
@@ -213,92 +236,6 @@ ggplot() +
 :::
 ::::
 
-## Assumptions About Item Behavior {visibility="hidden"}
-
-```{r}
-source("Functions.R")
-```
-
-:::: {.columns}
-::: {.column width="50%"}
-
-
-**Assumption 1:** On average, items are always biased to some extent (*irreducible uncertainty*) 
-
-::: {.panel-tabset}
-
-### Slightly Biased Item
-
-```{r}
-#| eval: true
-#| echo: false 
-#| code-line-numbers: false
-
-Model_plot(b = .3, title = "")
-
-```
-
-
-
-
-
-### Noticeably Biased Item 
-
-```{r}
-#| eval: true
-#| echo: false 
-#| code-line-numbers: false
-
-Model_plot(b = 2, title = "")
-
-```
-
- 
-:::
- 
-:::
-
-::: {.column width="50%"}
-
-::: {.fragment fragment-index=1}
-
-**Assumption 2:** Good forecasters will more closely approach the expected means at the 5 quantiles 
-
-
-::: {.panel-tabset}
-
-### Average Forecaster
-
-
-```{r}
-#| eval: true
-#| echo: false 
-#| code-line-numbers: false
-
-Model_plot_full(b = -1, df = 2000, sd = 1, title = "Expected Distribution for Average Forecaster")
-
-```
-
-
-### Good Forecaster
-
-```{r}
-#| eval: true
-#| echo: false 
-#| code-line-numbers: false
-
-Model_plot_full( b = -1, df = 2000, sd = .2, title = "Expected Distribution for Good Forecaster")
-
-```
-:::
-
-:::
-
-:::
-
-::::
-
-
 ## The Proposed Model
 
 
@@ -345,55 +282,6 @@ $$Y_{jiq} \sim \mathrm{Student\ T}(\mu_{iq}, \sigma_{ji}, \mathrm{df}_i) \\
 
 :::
 ::::
-
-
-## Data Collection
-
-Item forecasts were collected across 5 waves of a 7 Wave study. 
-
-
-
-:::: {.columns}
-::: {.column width="30%"}
-
-</br>
-
-<ul style="font-size: 26px">  
-
-<li>  **32 items** divided across 6 forms (A, B, C, D, E, X)  and **1194 participants** </li>
-
-
-::: {.fragment fragment-index=1}
-
-<li> Diverse item domains: Financial, political, technology, energy... </li>
-
-:::
-
-::: {.fragment fragment-index=2}
-
-<li> 1 week interval between waves, and 1 month from resolution at wave 7  </li>
-
-:::
-</ul>
-
-
-</br>
-
-
-
-
-:::
-::: {.column width="70%"}
-
-
-![](Additional files/images/Design_Waves.png)
-
-
-<div style="font-size: 16px"> *note*. The full experimental designed is detailed in both @Zhu_etal_2024 and @Himmelstein_etal_2024.</div>
-
-:::
-::::
-
 
 
 ## Model Estimation and Item Parameters
@@ -443,6 +331,14 @@ Forecasters who consistently approach the expected forecasts are rewarded
 :::
 ::::
 
+## Negative Log-Likelihood of $\theta$
+
+
+
+Negative log-likelihood function of $\theta$ given item parameters and participant response:
+
+<iframe class="stretch" width="100%" height="500px" src="https://quinix45.github.io/shinylive_apps/MLE_theta_model_t/"> </iframe>
+
 
 ## Predicting Out of Sample Accuracy
 
@@ -473,52 +369,6 @@ Forecasters who consistently approach the expected forecasts are rewarded
 
 :::
 
-
-## Expected Item Information
-
-One advantage of the $\theta$ metric is that it allows for the calculation of *expected item information*, $\mathrm{EI}(\theta)$ :
-
-
-:::: {.columns}
-::: {.column width="40%"}
-
-$$Y_{jiq} \sim \mathrm{Student\ T}(\mu_{iq}, \sigma_{ji}, \mathrm{df}_i) \\
-\mu_{iq} = b_i + Q_q \times d_i \\
-\sigma_{ji} = \frac{\sigma_i}{\mathrm{Exp}[a_i \times \theta_j]}$$
-
-
-<ul style="font-size: 22px">
-
-
-::: {.fragment fragment-index=1}
-
-<li> Items with higher $\sigma_i$ measure more skilled forecasters better. </li>
-:::
-
-::: {.fragment fragment-index=2}
-<li> Higher $a_i$ implies better measurement within a narrower interval of $\theta$.  </li>
-:::
-
-::: {.fragment fragment-index=3}
-<li>  $df_i$ functions in a similar way to $\sigma_i$.  </li>
-:::
-
-::: {.fragment fragment-index=4}
-<li>  The parameters within $\mu_{iq}$ do not influence $\mathrm{E} \mathrm{I}(\theta)$ much. </li>
-:::
-
-</ul>
-
-:::
-
-::: {.column width="60%"}
-
-<iframe class="stretch" width="100%" height="450px" src="https://quinix45.github.io/shinylive_apps/Einfo_t_model/"> </iframe>
-<div style="font-size: 18px; text-align:center;"> **note:** $\mathrm{E} \mathrm{I}(\theta)$ is computed by integrating over $Y_{jiq}[-10;10]$. </div>
-
-:::
-::::
-
 ## Stability of Parameters
 
 Given the complexity of the FPT items, item parameters are likely to change depending on many factors. Still, there seems to be reasonable stability even after a month between Wave 1 and Wave 7 (*test-retest*):
@@ -547,9 +397,6 @@ Given the complexity of the FPT items, item parameters are likely to change depe
 - The $\theta$ metric is easily understood and viable for scoring individuals 
 :::
 
-::: {.fragment fragment-index=3}
-- Item information can be calculated, although the practical uses are not as straightforward as conventional testing scenarios 
-:::
 :::
 
 :::{.column width="70%"}
@@ -564,10 +411,6 @@ Given the complexity of the FPT items, item parameters are likely to change depe
 ![](Additional files/Theta_Figure.png){width=50%}
 ![](Additional files/OUS_acc_plot.png){width=55%}
 </center>
-:::
-
-::: {.fragment fragment-index=3}
-<iframe class="stretch" width="900px" height="600px" src="https://quinix45.github.io/shinylive_apps/Einfo_t_model/"></iframe>
 :::
 
 :::
@@ -656,56 +499,3 @@ Given the complexity of the FPT items, item parameters are likely to change depe
 :::
 ::::
 [](){target="_blank"}
-
-
-
-
-# Appendix
-
-
-## Negative Log-Likelihood of $\theta$
-
-
-
-Negative log-likelihood function of $\theta$ given item parameters and participant response:
-
-<iframe class="stretch" width="100%" height="500px" src="https://quinix45.github.io/shinylive_apps/MLE_theta_model_t/"> </iframe>
-
-
-
-
-## Between Item Parameters Correlation
-
-
-```{r}
-#| eval: true
-#| echo: false
-#| code-line-numbers: false
-
-# correlation among item parameters (maybe highlight high correlations later)
-library(kableExtra)
-
-`%!in%` <- Negate(`%in%`) 
-
-par_tab <- mod_res %>% 
-  filter(parameter %!in% c("theta", "G_diff")) %>% 
-    select(parameter, mean, index) %>% 
-      pivot_wider(names_from = parameter, values_from = mean) %>% 
-          mutate(a = exp(a),
-                 d = exp(d),
-                 sigma = exp(sigma))
-
-
-colnames(par_tab)[5] <- "df"
-
-cor_tab <- data.frame(round(cor(par_tab[,-1], use = "complete.obs"), 2))
-
-kableExtra::kbl(cor_tab, caption = "Between Item Parameters Correlations") %>% 
-  row_spec(0, bold = T) %>% 
-  column_spec(1, bold = T) %>% 
-  kable_classic(full_width = F, html_font = "Palatino Linotype") %>% 
-  kable_styling(font_size = 30)
-
-```
-
-

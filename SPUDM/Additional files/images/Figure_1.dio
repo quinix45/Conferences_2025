@@ -1,0 +1,16 @@
+<mxfile host="65bd71144e">
+    <diagram id="TBX-WILb2NlLAdmyU0GQ" name="Page-1">
+        <mxGraphModel dx="1173" dy="706" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="850" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#232F3D;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.question;" vertex="1" parent="1">
+                    <mxGeometry x="560" y="162.93" width="173.24" height="329.57" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="&lt;font face=&quot;Georgia&quot;&gt;&lt;span style=&quot;font-size: 30px;&quot;&gt;&lt;b&gt;Some probabilistic&lt;/b&gt;&lt;/span&gt;&lt;/font&gt;&lt;div&gt;&lt;font face=&quot;Georgia&quot;&gt;&lt;span style=&quot;font-size: 30px;&quot;&gt;&lt;b&gt;process that &lt;i&gt;causes&lt;/i&gt;&amp;nbsp;&lt;/b&gt;&lt;/span&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font face=&quot;Georgia&quot;&gt;&lt;span style=&quot;font-size: 30px;&quot;&gt;&lt;b&gt;observed item&lt;/b&gt;&lt;/span&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font face=&quot;Georgia&quot;&gt;&lt;span style=&quot;font-size: 30px;&quot;&gt;&lt;b&gt;response&lt;/b&gt;&lt;/span&gt;&lt;/font&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="481.62" y="500" width="330" height="160" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
