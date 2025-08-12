@@ -193,43 +193,59 @@ The interest of <em>psychometrics</em> is uncovering the probabilistic process t
 </div>
 </center>
 <p><br></p>
-<p>in general, psychometric models are statistical models that predict item responses. All psychometrics models include:</p>
+<div class="fragment" data-fragment-index="1">
+<p>in general, psychometric models are statistical models that predict item responses. All psychometric models include:</p>
 <ul>
 <li>Parameters defining <strong>item properties</strong></li>
 <li>Parameters defining <strong>person properties</strong></li>
 <li>Allow for some <strong>randomness</strong> in item responses (random measurement error)</li>
 </ul>
-<p><br></p>
+</div>
+<div class="fragment" data-fragment-index="2">
 <center>
+<div style="padding-top:24px;">
 <strong>Item response theory</strong> (IRT) models include all of these components.
+</div>
 </center>
+</div>
 </div><div class="column" style="width:40%;">
-<p><img data-src="Additional%20files/images/Figure_1.png" style="width:60.0%"></p>
+<center>
+<img data-src="Additional%20files/images/Figure_1.png" style="width:60.0%">
+</center>
 </div></div>
 </section>
 <section id="a-classical-irt-model" class="slide level2">
 <h2>A Classical IRT Model</h2>
-<p>According to this IRT model, the <em>probability</em> of a correct response to a binary item (<span class="math inline">\(Y = 1\)</span>) for person <span class="math inline">\(j\)</span> to item <span class="math inline">\(i\)</span>:</p>
+<p>According to this IRT model, the <em>probability</em> of a correct response to a binary item <span class="math inline">\(i\)</span> for person <span class="math inline">\(j\)</span> (<span class="math inline">\(Y_{ij} = 1\)</span>) is:</p>
 <div class="columns">
 <div class="column" style="width:60%;">
 <iframe class="stretch" width="100%" height="470px" src="https://quinix45.github.io/shinylive_apps/2PL_interactive/">
 </iframe>
 </div><div class="column" style="width:40%;">
-<p><span class="math display">\[P(Y = 1|a_i,b_i,\theta_j) = \mathrm{logit}(a_i(\theta_j - b_i))\]</span></p>
+<p><span class="math display">\[P(Y_{ij} = 1|a_i,b_i,\theta_j) = \mathrm{logit}(a_i(\theta_j - b_i))\]</span></p>
+<div class="fragment" data-fragment-index="1">
 <ul>
-<li><p><span class="math inline">\(\theta_j\)</span> is an unobserved person trait that explains why responses from the same individuals are similar to each other (i.e., <strong>ability</strong>)</p></li>
-<li><p><span class="math inline">\(a_i\)</span> and <span class="math inline">\(b_i\)</span> are characteristics that vary across items (e.g., items can be more or less difficult)</p></li>
+<li><span class="math inline">\(\theta_j\)</span> is an unobserved person trait that explains why responses from the same individuals are similar to each other (i.e., <strong>ability</strong>)</li>
 </ul>
+</div>
+<div class="fragment" data-fragment-index="2">
+<ul>
+<li><span class="math inline">\(a_i\)</span> and <span class="math inline">\(b_i\)</span> are characteristics that vary across items (e.g., items can be more or less difficult)</li>
+</ul>
+</div>
 </div></div>
 </section>
 <section id="why-psychometrics-and-irt" class="slide level2">
 <h2>Why Psychometrics and IRT?</h2>
-<p>Not only we explain the observed responses, but we also obtain <strong>item characteristics</strong> and <strong>person characteristics</strong> in the process.</p>
-<p><strong>Question:</strong> Can we do the same for quantile items in the Forecasting Proficiency Test <span class="citation" data-cites="Himmelstein_etal_2024">(FPT; <a href="#/references-and-contacts" role="doc-biblioref" onclick="">Himmelstein et al., 2024</a>)</span>?</p>
+<p>With psychometric models, not only do we explain the observed responses, but we also obtain <strong>item characteristics</strong> and <strong>person characteristics</strong>.</p>
+<div class="fragment" data-fragment-index="1">
+<p><strong>Question:</strong> Can we do the same for quantile forecast items in the Forecasting Proficiency Test <span class="citation" data-cites="Himmelstein_etal_2024">(FPT; <a href="#/references-and-contacts" role="doc-biblioref" onclick="">Himmelstein et al., 2024</a>)</span>?</p>
+<p><img data-src="Additional%20files/images/diagram_4.png"></p>
+</div>
 </section>
-<section id="defining-forecast-accuracy" class="slide level2">
-<h2>Defining Forecast Accuracy</h2>
-<p>Responses to FPT quantile forecast items are on very different scale (e.g.&nbsp;dollars/gallon, thousands of dollars, percentages,…). We define the outcome measure, <em>historically scaled accuracy</em>, as</p>
+<section id="historical-standardization" class="slide level2">
+<h2>Historical Standardization</h2>
+<p>Responses to FPT quantile forecast items are on very different scales (e.g.&nbsp;dollars/gallon, thousands of dollars, percentages,…). We define the outcome measure, <em>historically scaled signed error</em>, as</p>
 <p><span class="math display">\[
 Y_i = \frac{\hat{Y}_i - Y_{\mathrm{res},i}}{SD_{Y_{\mathrm{hist},i}}}
 \]</span></p>
@@ -287,9 +303,21 @@ Y_i = \frac{\hat{Y}_i - Y_{\mathrm{res},i}}{SD_{Y_{\mathrm{hist},i}}}
 </div>
 </div></div>
 </section>
-<section id="the-proposed-model" class="slide level2">
-<h2>The Proposed Model</h2>
-<p>We model <span class="math inline">\(Y_{jiq}\)</span>, the accuracy of person <span class="math inline">\(j\)</span> to item <span class="math inline">\(i\)</span> at quantile <span class="math inline">\(q\)</span>.</p>
+<section id="observed-distributions-of-signed-error" class="slide level2">
+<h2>Observed Distributions of Signed Error</h2>
+<div class="columns">
+<div class="column" style="width:70%;">
+<p><img data-src="Additional%20files/item_G2404_plot.png"></p>
+</div><div class="column" style="width:30%;">
+<center>
+<p><img data-src="Additional%20files/images/step_3.png" style="width:70.0%"></p>
+<p><strong>Item G2404:</strong> What will be the 12-month percentage change in the U.S. Consumer Price Index (CPI) for “Food” in the month between May 1, 2024 and May 31, 2024?</p>
+</center>
+</div></div>
+</section>
+<section id="modeling-singed-error" class="slide level2">
+<h2>Modeling Singed Error</h2>
+<p>We model <span class="math inline">\(Y_{jiq}\)</span>, the signed error of person <span class="math inline">\(j\)</span> to item <span class="math inline">\(i\)</span> at quantile <span class="math inline">\(q\)</span>.</p>
 <div class="columns">
 <div class="column" style="width:40%;">
 <p><span class="math display">\[Y_{jiq} \sim \mathrm{Student\ T}(\mu_{iq}, \sigma_{ji}, \mathrm{df}_i) \\
@@ -348,17 +376,16 @@ Y_i = \frac{\hat{Y}_i - Y_{\mathrm{res},i}}{SD_{Y_{\mathrm{hist},i}}}
 </section>
 <section id="who-gets-higher-theta-s" class="slide level2">
 <h2>Who gets Higher <span class="math inline">\(\theta s\)</span>?</h2>
-<p>Forecasters who consistently approach the expected forecasts are rewarded</p>
 <div class="columns">
 <div class="column" style="width:80%;">
 <center>
 <img data-src="Additional%20files/theta_plot.png" style="width:75.0%">
-</center>
-</div><div class="column" style="width:20%;">
-<p><br></p>
 <div style="font-size: 22px">
 <em>note</em>. In the case of the two top panels, missing person forecast were outside the <span class="math inline">\(Y_{jiq} = [-9; 9]\)</span> range.
 </div>
+</center>
+</div><div class="column" style="width:20%;">
+<p>For any set of quantile forecasts, <span class="math inline">\(\theta\)</span> is maximized <em>if and only if</em> all <em>person forecasts</em> (<span class="math inline">\(Y_{jiq}\)</span>) equal exactly the corresponding item expected forecasts (<span class="math inline">\(\mu_{iq}\)</span>).</p>
 </div></div>
 </section>
 <section id="negative-log-likelihood-of-theta" class="slide level2">
@@ -367,34 +394,42 @@ Y_i = \frac{\hat{Y}_i - Y_{\mathrm{res},i}}{SD_{Y_{\mathrm{hist},i}}}
 <iframe class="stretch" width="100%" height="500px" src="https://quinix45.github.io/shinylive_apps/MLE_theta_model_t/">
 </iframe>
 </section>
+<section id="uncertainty-around-theta-and-s-scores" class="slide level2">
+<h2>Uncertainty Around <span class="math inline">\(\theta\)</span> and S-Scores</h2>
+<p><span class="math inline">\(\theta\)</span> has much less uncertainty around its estimates</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img data-src="Additional%20files/SD_hist_freeX.png" style="width:110.0%"></p>
+<center>
+<div style="font-size: 22px">
+Different X-axis scale across panels
+</div>
+</center>
+</div><div class="column" style="width:50%;">
+<div class="fragment" data-fragment-index="1">
+<p><img data-src="Additional%20files/SD_hist_fixX.png" style="width:110.0%"></p>
+<center>
+<div style="font-size: 22px">
+Same X-axis scale across panels
+</div>
+</center>
+</div>
+</div></div>
+</section>
 <section id="predicting-out-of-sample-accuracy" class="slide level2">
 <h2>Predicting Out of Sample Accuracy</h2>
-<div style="font-size: 24px">
-As per the study pre-registration, Waves 1 and 7 responses were treated as <em>outcome</em> and Waves 2,4, 6 were treated as <em>predictors</em>.
-</div>
-<div class="fragment" data-fragment-index="1">
 <div class="columns">
 <div class="column" style="width:30%;">
+<div style="font-size: 26px">
+As per the study pre-registration, Waves 1 and 7 responses were treated as <em>outcome</em> and Waves 2,4, 6 were treated as <em>predictors</em>.
+</div>
 <p><br> <br></p>
-<div style="font-size: 26px; padding-top: 14px;">
-<strong>S-scores (SS):</strong> A proper scoring rule that is normally used to score quantile forecasts (smaller SS, better forecast)
+<div style="font-size: 24px; padding-top: 14px;">
+* <strong>SS</strong> stands for <strong>S-Score</strong>
 </div>
 </div><div class="column" style="width:70%;">
 <p><img data-src="Additional%20files/OUS_acc_plot.png" style="width:95.0%"></p>
 </div></div>
-</div>
-</section>
-<section id="stability-of-parameters" class="slide level2">
-<h2>Stability of Parameters</h2>
-<p>Given the complexity of the FPT items, item parameters are likely to change depending on many factors. Still, there seems to be reasonable stability even after a month between Wave 1 and Wave 7 (<em>test-retest</em>):</p>
-<div class="fragment" data-fragment-index="1">
-<center>
-<img data-src="Additional%20files/W1_W7_parameters.png" style="width:58.0%">
-<div style="font-size: 14px">
-<em>note</em>. Only items from Waves 1 and 7. The <span class="math inline">\(a_i\)</span> parameter requires higher sample sizes to stably estimate, so it was fixed to 1.
-</div>
-</center>
-</div>
 </section>
 <section id="takeaways" class="slide level2">
 <h2>Takeaways</h2>
@@ -402,12 +437,17 @@ As per the study pre-registration, Waves 1 and 7 responses were treated as <em>o
 <div class="column" style="width:30%;">
 <div class="fragment" data-fragment-index="1">
 <ul>
-<li>The current approach captures meaingful difference across FPT items (i.e., bias, difficulty, discrimination,…)</li>
+<li>This approach captures meaningful difference across FPT items (i.e., bias, difficulty, discrimination,…)</li>
 </ul>
 </div>
 <div class="fragment" data-fragment-index="2">
 <ul>
-<li>The <span class="math inline">\(\theta\)</span> metric is easily undesrtood and viable for scoring individuals</li>
+<li>The <span class="math inline">\(\theta\)</span> metric is easily understood and presents good statistical properties</li>
+</ul>
+</div>
+<div class="fragment" data-fragment-index="3">
+<ul>
+<li>The <span class="math inline">\(\theta\)</span> metric predicts out of sample accuracy well</li>
 </ul>
 </div>
 </div><div class="column" style="width:70%;">
@@ -417,55 +457,52 @@ As per the study pre-registration, Waves 1 and 7 responses were treated as <em>o
 </div>
 <div class="fragment fade-in-then-out" data-fragment-index="2">
 <center>
-<img data-src="Additional%20files/Theta_Figure.png" style="width:50.0%"> <img data-src="Additional%20files/OUS_acc_plot.png" style="width:55.0%">
+<img data-src="Additional%20files/Theta_Figure.png" style="width:50.0%"> <img data-src="Additional%20files/SD_hist_fixX.png" style="width:55.0%">
 </center>
 </div>
-</div>
-</div></div>
-</section>
-<section id="acknowledgments" class="slide level2">
-<h2>Acknowledgments</h2>
-<div class="columns">
-<div class="column" style="width:30%;">
-<p><img data-src="Additional%20files/images/Fordham_University_seal.svg" style="width:50.0%"></p>
-<figure>
-<img src="Additional files/images/Leah.jpg" alt="Trulli" style="width:220px;">
-<figcaption style="text-align:left;">
-Leah Feuerstahler
-</figcaption>
-</figure>
-</div><div class="column" style="width:70%;">
+<div class="fragment fade-in-then-out" data-fragment-index="3">
 <center>
-<p><img data-src="Additional%20files/images/FRI-logo.png" style="width:50.0%"></p>
-<div style="display:flex; font-size:26px;">
-<figure>
-<img src="Additional files/images/Mark.jpg" alt="Trulli" style="width:220px">
-<figcaption>
-Mark Himmelstein
-</figcaption>
-</figure>
-<figure>
-<img src="Additional files/images/Sophie.jpg" alt="Trulli" style="width:220px">
-<figcaption>
-Sophie Ma Zhu
-</figcaption>
-</figure>
-<figure>
-<img src="Additional files/images/Nik.jpg" alt="Trulli" style="width:220px">
-<figcaption>
-Nikolay Petrov
-</figcaption>
-</figure>
-<figure>
-<img src="Additional files/images/Ezra.jpg" alt="Trulli" style="width:220px">
-<figcaption>
-Ezra Karger
-</figcaption>
-</figure>
-</div>
+<p><img data-src="Additional%20files/OUS_acc_plot.png"></p>
 </center>
+</div>
+</div>
 </div></div>
 </section>
+<section id="theta-and-s-scores" class="slide level2">
+<h2><span class="math inline">\(\theta\)</span> And S-scores?</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="fragment" data-fragment-index="1">
+<center>
+<figure>
+<img src="Additional files/images/Magnus-Carlsen.png" style="width:70%;">
+<figcaption style="font-size: 30px">
+Magnus Carlsen, the best chess player in the world (highest <span class="math inline">\(\theta\)</span>)
+</figcaption>
+</figure>
+</center>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="fragment" data-fragment-index="2">
+<center>
+<figure>
+<div class="tenor-gif-embed" data-postid="16228483763522153196" data-share-method="host" data-aspect-ratio="1.1267" data-width="80%">
+<pre><code>&lt;a href="https://tenor.com/view/magnus-carlsen-magnus-slam-table-slam-angry-gif-16228483763522153196"&gt;
+  Magnus Carlsen Slam GIF
+&lt;/a&gt; 
+from 
+&lt;a href="https://tenor.com/search/magnus+carlsen-gifs"&gt;Magnus Carlsen GIFs&lt;/a&gt;</code></pre>
+</div>
+<script type="text/javascript" async="" src="https://tenor.com/embed.js"></script>
+<figcaption style="font-size: 30px">
+Magnus still loses every once in a while (i.e., lower S-score in some instances)
+</figcaption>
+</figure>
+</center>
+</div>
+</div></div>
+</section>
+
 <section id="references-and-contacts" class="slide level2 smaller scrollable">
 <h2>References And Contacts</h2>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
@@ -497,8 +534,25 @@ Contact: <a href="mailto:fsetti@fordham.edu" target="_blank">fsetti@fordham.edu<
 </center>
 </div></div>
 <p><a href="" target="_blank"></a></p>
+</section>
+<section>
+<section id="appendix" class="title-slide slide level1 center">
+<h1>Appendix</h1>
 
 </section>
+<section id="stability-of-parameters" class="slide level2">
+<h2>Stability of Parameters</h2>
+<p>Given the complexity of the FPT items, item parameters are likely to change depending on many factors. Still, there seems to be reasonable stability even after a month between Wave 1 and Wave 7 (<em>test-retest</em>):</p>
+<div class="fragment" data-fragment-index="1">
+<center>
+<img data-src="Additional%20files/W1_W7_parameters.png" style="width:58.0%">
+<div style="font-size: 14px">
+<em>note</em>. Only items from Waves 1 and 7. The <span class="math inline">\(a_i\)</span> parameter requires higher sample sizes to stably estimate, so it was fixed to 1.
+</div>
+</center>
+</div>
+
+</section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">

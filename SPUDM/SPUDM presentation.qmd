@@ -69,28 +69,39 @@ mod_res <- rio::import("Additional files/summary.csv")
 :::: {.columns}
 ::: {.column width="60%"}
 
+
+
 </br>
 <center> <div style="font-size: 32px"> The interest of *psychometrics* is uncovering the probabilistic process that <u>**causes**</u> item responses. </div> </center>
 
 </br>
 
-in general, psychometric models are statistical models that predict item responses. All psychometrics models include:
+::: {.fragment fragment-index=1}
+
+
+in general, psychometric models are statistical models that predict item responses. All psychometric models include:
 
 - Parameters defining **item properties**
 - Parameters defining **person properties**
 - Allow for some **randomness** in item responses (random measurement error)
+:::
 
-</br>
-
-
+::: {.fragment fragment-index=2}
 <center>
-**Item response theory** (IRT) models include all of these components.
+
+<div style="padding-top:24px;"> **Item response theory** (IRT) models include all of these components. </div>
+
+
 </center>
+:::
 
 :::
 ::: {.column width="40%"}
 
+<center>
+
 ![](Additional files/images/Figure_1.png){width="60%"}
+</center>
 
 :::
 ::::
@@ -98,7 +109,7 @@ in general, psychometric models are statistical models that predict item respons
 ## A Classical IRT Model
 
 
-According to this IRT model, the *probability* of a correct response to a binary item ($Y = 1$) for person $j$ to item $i$: 
+According to this IRT model, the *probability* of a correct response to a binary item $i$ for person $j$ ($Y_{ij} = 1$) is: 
 
 :::: {.columns}
 ::: {.column width="60%"}
@@ -109,11 +120,17 @@ According to this IRT model, the *probability* of a correct response to a binary
 
 ::: {.column width="40%"}
 
-$$P(Y = 1|a_i,b_i,\theta_j) = \mathrm{logit}(a_i(\theta_j - b_i))$$
+$$P(Y_{ij} = 1|a_i,b_i,\theta_j) = \mathrm{logit}(a_i(\theta_j - b_i))$$
 
+:::{.fragment fragment-index=1}
 - $\theta_j$ is an unobserved person trait that explains why responses from the same individuals are similar to each other (i.e., **ability**)
+:::
+
+:::{.fragment fragment-index=2}
 
 - $a_i$ and $b_i$ are characteristics that vary across items (e.g., items can be more or less difficult)
+
+:::
 
 :::
 ::::
@@ -121,17 +138,18 @@ $$P(Y = 1|a_i,b_i,\theta_j) = \mathrm{logit}(a_i(\theta_j - b_i))$$
 ## Why Psychometrics and IRT?
 
 
-Not only we explain the observed responses, but we also obtain **item characteristics** and **person characteristics** in the process. 
+With psychometric models, not only do we explain the observed responses, but we also obtain **item characteristics** and **person characteristics**. 
 
-**Question:** Can we do the same for quantile items in the Forecasting Proficiency Test [FPT\; @Himmelstein_etal_2024]?
+::: {.fragment fragment-index=1}
 
+**Question:** Can we do the same for quantile forecast items in the Forecasting Proficiency Test [FPT\; @Himmelstein_etal_2024]?
 
+![](Additional files/images/diagram_4.png)  
+:::
 
+## Historical Standardization 
 
-
-## Defining Forecast Accuracy
-
-Responses to FPT quantile forecast items are on very different scale (e.g. dollars/gallon, thousands of dollars, percentages,...). We define the outcome measure, *historically scaled accuracy*, as
+Responses to FPT quantile forecast items are on very different scales (e.g. dollars/gallon, thousands of dollars, percentages,...). We define the outcome measure, *historically scaled signed error*, as
 
 
 
@@ -236,10 +254,36 @@ ggplot() +
 :::
 ::::
 
-## The Proposed Model
+## Observed Distributions of Signed Error
+
+:::: {.columns}
+::: {.column width="70%"}
+
+![](Additional files/item_G2404_plot.png) 
+
+:::
+::: {.column width="30%"}
+
+<center>
+
+![](Additional files/images/step_3.png){width=70%} 
 
 
-We model $Y_{jiq}$, the accuracy of person $j$ to item $i$ at quantile $q$. 
+**Item G2404:** What will be the 12-month percentage change in the U.S. Consumer Price Index (CPI) for "Food" in the month between May 1, 2024 and May 31, 2024?
+
+</center>
+
+:::
+::::
+
+
+
+
+
+## Modeling Singed Error
+
+
+We model $Y_{jiq}$, the signed error of person $j$ to item $i$ at quantile $q$. 
 
 
 :::: {.columns}
@@ -312,7 +356,6 @@ Distribution of $\theta$ for the 1194 forecasters (better forecasters have highe
 
 ## Who gets Higher $\theta s$?
 
-Forecasters who consistently approach the expected forecasts are rewarded
 
 
 
@@ -320,13 +363,14 @@ Forecasters who consistently approach the expected forecasts are rewarded
 ::: {.column width="80%"}
 <center>
 ![](Additional files/theta_plot.png){width=75%}
+<div style="font-size: 22px"> *note*. In the case of the two top panels, missing person forecast were outside the $Y_{jiq} = [-9; 9]$ range.</div>
 </center>
 :::
 ::: {.column width="20%"}
 
-</br>
+For any set of quantile forecasts, $\theta$ is maximized *if and only if* all *person forecasts* ($Y_{jiq}$) equal exactly the corresponding item expected forecasts ($\mu_{iq}$).
 
-<div style="font-size: 22px"> *note*. In the case of the two top panels, missing person forecast were outside the $Y_{jiq} = [-9; 9]$ range.</div>
+
 
 :::
 ::::
@@ -334,28 +378,60 @@ Forecasters who consistently approach the expected forecasts are rewarded
 ## Negative Log-Likelihood of $\theta$
 
 
-
 Negative log-likelihood function of $\theta$ given item parameters and participant response:
 
 <iframe class="stretch" width="100%" height="500px" src="https://quinix45.github.io/shinylive_apps/MLE_theta_model_t/"> </iframe>
 
 
-## Predicting Out of Sample Accuracy
+## Uncertainty Around $\theta$ and S-Scores
 
 
-<div style="font-size: 24px"> As per the study pre-registration, Waves 1 and 7 responses were treated as *outcome* and Waves 2,4, 6 were treated as *predictors*. </div>
+$\theta$ has much less uncertainty around its estimates
 
+:::: {.columns}
+::: {.column width="50%"}
+
+
+
+![](Additional files/SD_hist_freeX.png){width=110%}
+
+
+
+<center> <div style="font-size: 22px"> Different X-axis scale across panels </div> </center>
+
+:::
+::: {.column width="50%"}
 
 ::: {.fragment fragment-index=1}
+
+
+![](Additional files/SD_hist_fixX.png){width=110%}
+
+<center> <div style="font-size: 22px"> Same X-axis scale  across panels </div> </center>
+:::
+:::
+::::
+
+
+
+
+
+
+
+
+
+## Predicting Out of Sample Accuracy
+
 
 :::: {.columns}
 ::: {.column width="30%"}
 
+<div style="font-size: 26px"> As per the study pre-registration, Waves 1 and 7 responses were treated as *outcome* and Waves 2,4, 6 were treated as *predictors*. </div>
 
 </br>
 </br>
 
-<div style="font-size: 26px; padding-top: 14px;"> **S-scores (SS):** A proper scoring rule that is normally used to score quantile forecasts (smaller SS, better forecast) </div>
+<div style="font-size: 24px; padding-top: 14px;"> \* **SS** stands for **S-Score**  </div>
 
 
 
@@ -367,22 +443,6 @@ Negative log-likelihood function of $\theta$ given item parameters and participa
 :::
 ::::
 
-:::
-
-## Stability of Parameters
-
-Given the complexity of the FPT items, item parameters are likely to change depending on many factors. Still, there seems to be reasonable stability even after a month between Wave 1 and Wave 7 (*test-retest*):
-
-
-::: {.fragment fragment-index=1}
-<center>
-![](Additional files/W1_W7_parameters.png){width=58%}
-<div style="font-size: 14px"> *note*. Only items from Waves 1 and 7. The $a_i$ parameter requires higher sample sizes to stably estimate, so it was fixed to 1. </div>
-</center>
-:::
-
-
-
 
 ## Takeaways
 
@@ -390,11 +450,16 @@ Given the complexity of the FPT items, item parameters are likely to change depe
 ::: {.column width="30%"}
 
 ::: {.fragment fragment-index=1}
-- The current approach captures meaningful difference across FPT items (i.e., bias, difficulty, discrimination,...)
+- This approach captures meaningful difference across FPT items (i.e., bias, difficulty, discrimination,...)
 :::
 
 ::: {.fragment fragment-index=2}
-- The $\theta$ metric is easily understood and viable for scoring individuals 
+- The $\theta$ metric is easily understood and presents good statistical properties
+:::
+
+
+::: {.fragment fragment-index=3}
+- The $\theta$ metric predicts out of sample accuracy well
 :::
 
 :::
@@ -408,18 +473,71 @@ Given the complexity of the FPT items, item parameters are likely to change depe
 
 ::: {.fragment fragment-index=2 .fade-in-then-out}
 <center>
+
 ![](Additional files/Theta_Figure.png){width=50%}
-![](Additional files/OUS_acc_plot.png){width=55%}
+![](Additional files/SD_hist_fixX.png){width=55%}
+</center>
+
+:::
+
+::: {.fragment fragment-index=3 .fade-in-then-out}
+<center>
+
+![](Additional files/OUS_acc_plot.png)
+
 </center>
 :::
-
 :::
 :::
-
 ::::
 
 
-## Acknowledgments
+## $\theta$ And S-scores?
+
+:::: {.columns}
+::: {.column width="50%"}
+
+
+::: {.fragment fragment-index=1}
+
+<center>
+<figure>
+  <img src="Additional files/images/Magnus-Carlsen.png" style="width:70%;">
+  <figcaption style="font-size: 30px"> Magnus Carlsen, the best chess player in the world (highest $\theta$) </figcaption>
+</figure>
+</center>
+
+:::
+
+:::
+::: {.column width="50%"}
+
+::: {.fragment fragment-index=2}
+<center>
+<figure>
+  <div class="tenor-gif-embed" 
+       data-postid="16228483763522153196" 
+       data-share-method="host" 
+       data-aspect-ratio="1.1267" 
+       data-width="80%">
+    <a href="https://tenor.com/view/magnus-carlsen-magnus-slam-table-slam-angry-gif-16228483763522153196">
+      Magnus Carlsen Slam GIF
+    </a> 
+    from 
+    <a href="https://tenor.com/search/magnus+carlsen-gifs">Magnus Carlsen GIFs</a>
+  </div>
+  <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+  <figcaption style="font-size: 30px">Magnus still loses every once in a while (i.e., lower S-score in some instances) </figcaption>
+</figure>
+</center>
+:::
+:::
+::::
+
+
+
+
+## Acknowledgments{visibility="hidden"}
 
 :::: {.columns}
 ::: {.column width="30%"}
@@ -499,3 +617,19 @@ Given the complexity of the FPT items, item parameters are likely to change depe
 :::
 ::::
 [](){target="_blank"}
+
+# Appendix
+
+## Stability of Parameters
+
+Given the complexity of the FPT items, item parameters are likely to change depending on many factors. Still, there seems to be reasonable stability even after a month between Wave 1 and Wave 7 (*test-retest*):
+
+
+::: {.fragment fragment-index=1}
+<center>
+![](Additional files/W1_W7_parameters.png){width=58%}
+<div style="font-size: 14px"> *note*. Only items from Waves 1 and 7. The $a_i$ parameter requires higher sample sizes to stably estimate, so it was fixed to 1. </div>
+</center>
+:::
+
+
