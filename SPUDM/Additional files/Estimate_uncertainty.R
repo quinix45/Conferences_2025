@@ -25,7 +25,7 @@ theme_set(theme_classic(base_size = 16,
 
 dat_plot$parameter <- factor(dat_plot$parameter, 
                              levels = c("theta", "S_Score"),
-                             labels = c("\u03B8 SDs", "Standardized S Scores SDs"))
+                             labels = c("\u03B8 SDs", "Standardized S-Scores SDs"))
 
 
 SD_hist_freeX <- ggplot(dat_plot, aes(x = sd))+

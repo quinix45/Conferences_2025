@@ -280,7 +280,7 @@ ggplot() +
 
 
 
-## Modeling Singed Error
+## Modeling Signed Error
 
 
 We model $Y_{jiq}$, the signed error of person $j$ to item $i$ at quantile $q$. 
@@ -378,7 +378,7 @@ For any set of quantile forecasts, $\theta$ is maximized *if and only if* all *p
 ## Negative Log-Likelihood of $\theta$
 
 
-Negative log-likelihood function of $\theta$ given item parameters and participant response:
+Negative log-likelihood function of $\theta$ given item parameters and forecast:
 
 <iframe class="stretch" width="100%" height="500px" src="https://quinix45.github.io/shinylive_apps/MLE_theta_model_t/"> </iframe>
 
@@ -386,7 +386,7 @@ Negative log-likelihood function of $\theta$ given item parameters and participa
 ## Uncertainty Around $\theta$ and S-Scores
 
 
-$\theta$ has much less uncertainty around its estimates
+$\theta$ has less uncertainty around its estimates:
 
 :::: {.columns}
 ::: {.column width="50%"}
