@@ -368,8 +368,9 @@ Distribution of $\theta$ for the 1194 forecasters (better forecasters have highe
 :::
 ::: {.column width="20%"}
 
-For any set of quantile forecasts, $\theta$ is maximized *if and only if* all *person forecasts* ($Y_{jiq}$) equal exactly the corresponding item expected forecasts ($\mu_{iq}$).
-
+::: {.fragment fragment-index=1}
+For any set of quantile forecasts, $\theta$ is maximized *if and only if* all *person forecasts* equal exactly the corresponding item expected forecasts.
+:::
 
 
 :::
