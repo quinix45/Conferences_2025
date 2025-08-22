@@ -100,20 +100,39 @@ theta_labels <- setNames(
  long_dat_plot$variable <- factor(long_dat_plot$variable, 
                                   labels = c("Item Expected Forecast", "Person Forecast"))
  
- plot <- long_dat_plot %>% 
-   ggplot(aes(x = value, y = item, shape = variable, color = variable)) +
-   geom_point(size = 2.5) +
+ plot <- dat_filt %>%
+   ggplot(aes(x = accuracy_hist_scaled)) +
+   # map both aesthetics to the same "type"
+   geom_vline(aes(xintercept = 0, linetype = "Resolution", color = "Resolution")) +
+   geom_vline(data = modes, aes(xintercept = mode, linetype = "Quantile Mode", color = "Quantile Mode")) +
+   geom_density(adjust = 1.5, color = "#1b305c") +
    ggh4x::facet_manual(
-     ~ theta,
-     design = design,
-     labeller = labeller(theta = theta_labels)
+     ~ Q,
+     scales = "free",
+     design = "AABBCC
+              #DDEE#"
    ) +
-   xlim(-9, 9) +
-   xlab("") +
- theme(legend.position="bottom",
-       legend.title=element_blank()) +
-   scale_color_manual(values = c(1,"red")) +
-   scale_shape_manual(values = c(19, 17)) 
+   xlim(-3, 3) +
+   xlab("Signed Error Distribution for Item G2404 Across all Forecasters") +
+   theme(
+     legend.position = "bottom",
+     legend.title = element_blank(),
+     axis.text.y = element_blank(),
+     axis.ticks.y = element_blank(),
+     axis.title.y = element_blank(),
+     axis.line.y = element_blank()
+   ) +
+   scale_color_manual(
+     name   = NULL,
+     values = c("Resolution" = "red", "Quantile Mode" = "black")
+   ) +
+   scale_linetype_manual(
+     name   = NULL,
+     values = c("Resolution" = "dotted", "Quantile Mode" = "dashed")
+   ) +
+   guides(
+     color = guide_legend(override.aes = list(linetype = c("dotted", "dashed")))
+   )
  
 plot
 
