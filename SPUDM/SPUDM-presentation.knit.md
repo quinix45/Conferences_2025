@@ -28,17 +28,11 @@ format:
 editor: source
 ---
 
-```{r}
-#| warning: false
+::: {.cell}
 
-# ggplot defaults and tidyverse
+:::
 
-library(tidyverse)
-theme_set(theme_classic(base_size = 16, 
-                        base_family = 'serif'))
 
-mod_res <- rio::import("Additional files/summary.csv")
-```
 
 
 ##
@@ -184,65 +178,42 @@ $Y_i$: SD units away from the resolution.
 
 ::: {.fragment fragment-index=1}
 
-```{r}
-ggplot() +
-  xlim(c(-3, 3)) +
-  ylim(c(0, 5)) +
-  xlab(expression(Y[i])) +
-   geom_segment(aes(x = 0, xend = 0, y = 0, yend = 4), linetype = 2, 
-                col = "#1b305c",
-                size = 2)+
-  annotate("text", x = -2, y = 1, label = "Perfect Forecast",
-           size = 7) +
-  theme(axis.ticks.y = element_blank(),
-        axis.title.y =element_blank(),
-        axis.line.y = element_blank(),
-        axis.text.y =  element_blank())
 
-```
+
+::: {.cell}
+::: {.cell-output-display}
+![](SPUDM-presentation_files/figure-revealjs/unnamed-chunk-2-1.png){width=960}
+:::
+:::
+
+
 :::
 
 ::: {.fragment fragment-index=2}
 
-```{r}
-ggplot() +
-  xlim(c(-3, 3)) +
-  ylim(c(0, 5)) +
-  xlab(expression(Y[i])) +
-   geom_segment(aes(x = 2, xend = 2, y = 0, yend = 4), linetype = 2,
-                col = "#1b305c",
-                size = 2)+
-  annotate("text", x = 0, y = 1, label = "2 SD Above \n Resolution",
-           size = 7) +
-  theme(axis.ticks.y = element_blank(),
-        axis.title.y =element_blank(),
-        axis.line.y = element_blank(),
-        axis.text.y =  element_blank())
 
 
-```
+::: {.cell}
+::: {.cell-output-display}
+![](SPUDM-presentation_files/figure-revealjs/unnamed-chunk-3-1.png){width=960}
+:::
+:::
+
+
 
 :::
 
 ::: {.fragment fragment-index=3}
 
-```{r}
-ggplot() +
-  xlim(c(-3, 3)) +
-  ylim(c(0, 5)) +
-  xlab(expression(Y[i])) +
-   geom_segment(aes(x = -1, xend = -1, y = 0, yend = 4), linetype = 2,
-                col = "#1b305c",
-                size = 2)+
-  annotate("text", x = 0, y = 1, label = "1 SD Below \n Resolution",
-           size = 7) +
-  theme(axis.ticks.y = element_blank(),
-        axis.title.y =element_blank(),
-        axis.line.y = element_blank(),
-        axis.text.y =  element_blank())
 
 
-```
+::: {.cell}
+::: {.cell-output-display}
+![](SPUDM-presentation_files/figure-revealjs/unnamed-chunk-4-1.png){width=960}
+:::
+:::
+
+
 
 :::
 
@@ -629,5 +600,6 @@ Given the complexity of the FPT items, item parameters are likely to change depe
 <div style="font-size: 14px"> *note*. Only items from Waves 1 and 7. The $a_i$ parameter requires higher sample sizes to stably estimate, so it was fixed to 1. </div>
 </center>
 :::
+
 
 
